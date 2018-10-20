@@ -28,6 +28,7 @@ import { AppSettings } from './app.settings';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '../environments/environment';
 
@@ -55,8 +56,9 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
     SharedModule,
     PipesModule,
     routing,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFirestoreModule
   ],
   declarations: [
     AppComponent,

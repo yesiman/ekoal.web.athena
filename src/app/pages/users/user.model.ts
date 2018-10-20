@@ -1,43 +1,25 @@
+enum job
+{
+  tech,
+  ouv,
+  man
+}
+
 export class User {
-  id: number;
-  username: string;
+  id: string;
+  uid: string;
+  nom: string;
+  prenom: string;
   password: string;  
-  profile: UserProfile;
-  work: UserWork;
+  work: job;
   contacts: UserContacts;
-  social: UserSocial;
-  settings: UserSettings;
 }
-
-export class UserProfile {  
-  name: string;
-  surname: string;  
-  birthday: Object;
-  gender: string;
-  image: string;
-}
-
 export class UserWork {
   company: string;
   position: string;
   salary: number;
 }
-
 export class UserContacts{
   email: string;
   phone: string;
-  address: string;  
-}
-
-export class UserSocial {
-  facebook: string;
-  twitter: string;
-  google: string;
-}
-
-export class UserSettings{
-  isActive: boolean;
-  isDeleted: boolean;
-  registrationDate: Date;
-  joinedDate: Date;
 }

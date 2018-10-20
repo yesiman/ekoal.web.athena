@@ -5,15 +5,17 @@ import { emailValidator } from '../../theme/utils/app-validators';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UsersService } from '../users/users.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  providers:[UsersService]
 })
 export class LoginComponent {
   public form:FormGroup;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public fb: FormBuilder, public router:Router,public afAuth: AngularFireAuth){
+  constructor(public appSettings:AppSettings, public fb: FormBuilder, public router:Router,public afAuth: AngularFireAuth, private us:UsersService){
     this.settings = this.appSettings.settings; 
     this.form = this.fb.group({
       'email': [null, Validators.compose([Validators.required, emailValidator])],
@@ -26,9 +28,10 @@ export class LoginComponent {
       var lrouter = this.router;
       //CHEK FIREBASE
       this.afAuth.auth.signInWithEmailAndPassword(this.form.controls.email.value,this.form.controls.password.value).then((credential) => {
-        lrouter.navigate(['/dashboard']); 
+        console.log(this.us.getUser());
+        //lrouter.navigate(['/dashboard']); 
       }).catch((error) => {
-
+        alert("rrro");
       });
       //this.router.navigate(['/']);
     }

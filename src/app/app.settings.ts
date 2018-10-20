@@ -3,8 +3,9 @@ import { Settings } from './app.settings.model';
 
 @Injectable()
 export class AppSettings {
+    public user:null;
     public settings = new Settings(
-        'Gradus',   //theme name
+        'Athena',   //theme name
         true,       //loadingSpinner
         true,       //fixedHeader
         true,       //sidenavIsOpened

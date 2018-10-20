@@ -11854,7 +11854,7 @@ var Mail = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row wrap\">\r\n    <div fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0 mailbox\">\r\n            <mat-sidenav-container>\r\n                <mat-sidenav #sidenav [opened]=\"sidenavOpen\" [mode]=\"sidenavOpen ? 'side' : 'over'\" class=\"mailbox-sidenav mat-elevation-z1\">\r\n                    <mat-toolbar color=\"primary\" class=\"p-0\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                        <input [(ngModel)]=\"searchText\" type=\"text\" placeholder=\"Search mail...\" class=\"search mat-elevation-z3\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"filterMenu\" #filterMenuTrigger=\"matMenuTrigger\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>                                     \r\n                    </mat-toolbar>\r\n                    <mat-menu #filterMenu=\"matMenu\" xPosition=\"before\">\r\n                        <span (mouseleave)=\"filterMenuTrigger.closeMenu()\">\r\n                            <button mat-menu-item (click)=\"type = 'all';getMails();\">All</button>\r\n                            <button mat-menu-item (click)=\"type = 'starred';getMails();\">Starred</button>\r\n                            <button mat-menu-item (click)=\"type = 'sent';getMails();\">Sent</button>\r\n                            <button mat-menu-item (click)=\"type = 'drafts';getMails();\">Drafts</button>\r\n                            <button mat-menu-item (click)=\"type = 'trash';getMails();\">Trash</button>\r\n                        </span>\r\n                    </mat-menu> \r\n                    <mat-nav-list class=\"p-0 mailbox-sidenav-list\" perfectScrollbar>\r\n                        <div *ngFor=\"let mail of mails | MailSearch : searchText\" (click)=\"viewDetail(mail)\">\r\n                            <mat-list-item [ngClass]=\"{'unread': mail.unread, 'selected': mail.selected}\">\r\n                                <img *ngIf=\"mail.senderPhoto\" matListAvatar  [src]=\"mail.senderPhoto\">\r\n                                <img *ngIf=\"!mail.senderPhoto\" matListAvatar src=\"assets/img/users/default-user.jpg\">\r\n                                <div matLine fxLayout=\"row\" fxLayoutAlign=\"space-between space-between\">   \r\n                                    <h4 class=\"text-truncate sender\">{{mail.sender}}</h4> \r\n                                    <small>{{mail.date}}</small> \r\n                                </div>\r\n                                <p matLine class=\"text-truncate subject\">{{mail.subject}}</p>\r\n                            </mat-list-item>\r\n                            <mat-divider></mat-divider>\r\n                        </div>                        \r\n                    </mat-nav-list>\r\n                </mat-sidenav>              \r\n                <div>\r\n                    <mat-toolbar color=\"primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                        <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n                                <mat-icon>list</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button matTooltip=\"Reply\" matTooltipPosition=\"above\">\r\n                                <mat-icon>reply</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"newMail\" mat-icon-button (click)=\"newMail = false;\" matTooltip=\"Back\" matTooltipPosition=\"above\">\r\n                                <mat-icon>arrow_back</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button (click)=\"changeStarStatus()\" matTooltip=\"Mark as inportant\" matTooltipPosition=\"above\" fxShow=\"false\" fxShow.gt-xs>\r\n                                <mat-icon *ngIf=\"mail.starred\">star</mat-icon>\r\n                                <mat-icon *ngIf=\"!mail.starred\">star_border</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail && type=='trash'\" mat-icon-button (click)=\"restore()\" matTooltip=\"Restore\" matTooltipPosition=\"above\">\r\n                                <mat-icon>undo</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail\" mat-icon-button matTooltip=\"Report spam\" matTooltipPosition=\"above\" fxShow=\"false\" fxShow.gt-xs>\r\n                                <mat-icon>error</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button (click)=\"delete()\" matTooltip=\"Move to trash\" matTooltipPosition=\"above\">\r\n                                <mat-icon>delete</mat-icon>\r\n                            </button>\r\n                            <button mat-icon-button [matMenuTriggerFor]=\"moreMenu\" #moreMenuTrigger=\"matMenuTrigger\" [style.display]=\"(mail) ? 'block' : 'none'\">\r\n                                <mat-icon>more_vert</mat-icon>\r\n                            </button>\r\n                        </div>\r\n                        <button mat-raised-button color=\"warn\" (click)=\"compose()\">Compose</button>\r\n                    </mat-toolbar>\r\n                    <mat-menu #moreMenu=\"matMenu\" xPosition=\"before\">\r\n                        <span (mouseleave)=\"moreMenuTrigger.closeMenu()\">\r\n                            <button mat-menu-item (click)=\"setAsRead()\">Mark as read</button>\r\n                            <button mat-menu-item (click)=\"setAsUnRead()\">Mark as unread</button>\r\n                            <button mat-menu-item (click)=\"delete()\">Delete</button>\r\n                        </span>\r\n                    </mat-menu> \r\n                    <div class=\"mailbox-content\" perfectScrollbar>\r\n                        <div *ngIf=\"mail\">\r\n                            <mat-list class=\"p-0\">\r\n                                <mat-list-item class=\"h-100 py-1\">\r\n                                    <div matLine  fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                        <h2 class=\"subject\">{{mail.subject}}</h2>\r\n                                        <mat-icon class=\"muted-text\">print</mat-icon>\r\n                                    </div>                                    \r\n                                </mat-list-item>\r\n                                <mat-divider></mat-divider> \r\n                                <mat-list-item class=\"h-100 py-1\">\r\n                                    <img *ngIf=\"mail.senderPhoto\" matListAvatar  [src]=\"mail.senderPhoto\">\r\n                                    <img *ngIf=\"!mail.senderPhoto\" matListAvatar src=\"assets/img/users/default-user.jpg\">\r\n                                    <h6 matLine fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                        <span>\r\n                                            <strong class=\"text-truncate\">{{mail.sender}}</strong>\r\n                                            <span *ngIf=\"mail.senderMail\" class=\"email\">&lt;{{mail.senderMail}}&gt;</span>\r\n                                        </span>\r\n                                        <span>{{mail.date}}</span>\r\n                                    </h6>\r\n                                    <span matLine>to me</span>\r\n                                </mat-list-item>\r\n                                <mat-divider></mat-divider>\r\n                            </mat-list>\r\n                            <div class=\"mail-body\" [innerHTML]=\"mail.body\"></div>\r\n                            <div *ngIf=\"mail.attachments.length > 0\" class=\"mail-body\">\r\n                                <mat-divider></mat-divider>\r\n                                <p>\r\n                                    <strong>{{mail.attachments.length}} attachments</strong>\r\n                                    <button mat-icon-button matTooltip=\"Download all attachments\" matTooltipPosition=\"above\">\r\n                                        <mat-icon>file_download</mat-icon>\r\n                                    </button>\r\n                                    <button mat-icon-button matTooltip=\"View all Images\" matTooltipPosition=\"above\">\r\n                                        <mat-icon>pageview</mat-icon>\r\n                                    </button>\r\n                                </p>\r\n                                <div *ngFor=\"let attachment of mail.attachments; let i = index\">\r\n                                    <img [src]=\"attachment\" alt=\"attachment\">\r\n                                    <h3>image-{{i + 1}}.jpg</h3>\r\n                                    <p>\r\n                                        <span>457K</span>\r\n                                        <button mat-icon-button>\r\n                                            <mat-icon>file_download</mat-icon>\r\n                                        </button>\r\n                                        <button mat-icon-button>\r\n                                            <mat-icon>pageview</mat-icon>\r\n                                        </button>\r\n                                    </p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div *ngIf=\"!mail && !newMail\" fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"h-100 empty\">\r\n                            <mat-icon>mail_outline</mat-icon>            \r\n                            <p>Select a mail to read</p>\r\n                        </div> \r\n                        <form *ngIf=\"newMail\" [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\"mail-body\"> \r\n                            <mat-form-field class=\"w-100\">\r\n                                <input matInput placeholder=\"To\" formControlName=\"to\">\r\n                            </mat-form-field> \r\n                            <mat-form-field class=\"w-100\">\r\n                                <input matInput placeholder=\"Cc/Bcc\" formControlName=\"cc\">\r\n                            </mat-form-field> \r\n                            <mat-form-field class=\"w-100\">\r\n                                <input matInput placeholder=\"Subject\" formControlName=\"subject\">\r\n                            </mat-form-field>                          \r\n                            <quill-editor formControlName=\"message\"></quill-editor>                            \r\n                            <div fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                <button mat-raised-button (click)=\"newMail = false;\" type=\"button\">Cancel</button>\r\n                                <button mat-raised-button color=\"primary\" type=\"submit\">Send</button>\r\n                            </div> \r\n                        </form> \r\n                    </div>\r\n                </div>            \r\n            </mat-sidenav-container>\r\n        </mat-card>\r\n    </div>\r\n</div>"
+module.exports = "<div fxLayout=\"row wrap\">\r\n    <div fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0 mailbox\">\r\n            <mat-sidenav-container>\r\n                <mat-sidenav #sidenav [opened]=\"sidenavOpen\" [mode]=\"sidenavOpen ? 'side' : 'over'\" class=\"mailbox-sidenav mat-elevation-z1\">\r\n                    <mat-toolbar color=\"primary\" class=\"p-0\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                        <input [(ngModel)]=\"searchText\" type=\"text\" placeholder=\"Search mail...\" class=\"search mat-elevation-z3\">\r\n                        <button mat-icon-button [matMenuTriggerFor]=\"filterMenu\" #filterMenuTrigger=\"matMenuTrigger\">\r\n                            <mat-icon>more_vert</mat-icon>\r\n                        </button>                                     \r\n                    </mat-toolbar>\r\n                    <mat-menu #filterMenu=\"matMenu\" xPosition=\"before\">\r\n                        <span (mouseleave)=\"filterMenuTrigger.closeMenu()\">\r\n                            <button mat-menu-item (click)=\"type = 'all';getMails();\">All</button>\r\n                            <button mat-menu-item (click)=\"type = 'starred';getMails();\">Starred</button>\r\n                            <button mat-menu-item (click)=\"type = 'sent';getMails();\">Sent</button>\r\n                            <button mat-menu-item (click)=\"type = 'drafts';getMails();\">Drafts</button>\r\n                            <button mat-menu-item (click)=\"type = 'trash';getMails();\">Trash</button>\r\n                        </span>\r\n                    </mat-menu> \r\n                    <mat-nav-list class=\"p-0 mailbox-sidenav-list\" perfectScrollbar>\r\n                        <div *ngFor=\"let mail of mails | MailSearch : searchText\" (click)=\"viewDetail(mail)\">\r\n                            <mat-list-item [ngClass]=\"{'unread': mail.unread, 'selected': mail.selected}\">\r\n                                <img *ngIf=\"mail.senderPhoto\" matListAvatar  [src]=\"mail.senderPhoto\">\r\n                                <img *ngIf=\"!mail.senderPhoto\" matListAvatar src=\"assets/img/users/default-user.jpg\">\r\n                                <div matLine fxLayout=\"row\" fxLayoutAlign=\"space-between space-between\">   \r\n                                    <h4 class=\"text-truncate sender\">{{mail.sender}}</h4> \r\n                                    <small>{{mail.date}}</small> \r\n                                </div>\r\n                                <p matLine class=\"text-truncate subject\">{{mail.subject}}</p>\r\n                            </mat-list-item>\r\n                            <mat-divider></mat-divider>\r\n                        </div>                        \r\n                    </mat-nav-list>\r\n                </mat-sidenav>              \r\n                <div>\r\n                    <mat-toolbar color=\"primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                        <div fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <button mat-icon-button (click)=\"sidenav.toggle()\">\r\n                                <mat-icon>list</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button matTooltip=\"Reply\" matTooltipPosition=\"above\">\r\n                                <mat-icon>reply</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"newMail\" mat-icon-button (click)=\"newMail = false;\" matTooltip=\"Back\" matTooltipPosition=\"above\">\r\n                                <mat-icon>arrow_back</mat-icon>\r\n                            </button>\r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button (click)=\"changeStarStatus()\" matTooltip=\"Mark as inportant\" matTooltipPosition=\"above\" fxShow=\"false\" fxShow.gt-xs>\r\n                                <mat-icon *ngIf=\"mail.starred\">star</mat-icon>\r\n                                <mat-icon *ngIf=\"!mail.starred\">star_border</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail && type=='trash'\" mat-icon-button (click)=\"restore()\" matTooltip=\"Restore\" matTooltipPosition=\"above\">\r\n                                <mat-icon>undo</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail\" mat-icon-button matTooltip=\"Report spam\" matTooltipPosition=\"above\" fxShow=\"false\" fxShow.gt-xs>\r\n                                <mat-icon>error</mat-icon>\r\n                            </button> \r\n                            <button *ngIf=\"mail && type !='trash'\" mat-icon-button (click)=\"delete()\" matTooltip=\"Move to trash\" matTooltipPosition=\"above\">\r\n                                <mat-icon>delete</mat-icon>\r\n                            </button>\r\n                            <button mat-icon-button [matMenuTriggerFor]=\"moreMenu\" #moreMenuTrigger=\"matMenuTrigger\" [style.display]=\"(mail) ? 'block' : 'none'\">\r\n                                <mat-icon>more_vert</mat-icon>\r\n                            </button>\r\n                        </div>\r\n                        <button mat-raised-button color=\"warn\" (click)=\"compose()\">Compose</button>\r\n                    </mat-toolbar>\r\n                    <mat-menu #moreMenu=\"matMenu\" xPosition=\"before\">\r\n                        <span (mouseleave)=\"moreMenuTrigger.closeMenu()\">\r\n                            <button mat-menu-item (click)=\"setAsRead()\">Mark as read</button>\r\n                            <button mat-menu-item (click)=\"setAsUnRead()\">Mark as unread</button>\r\n                            <button mat-menu-item (click)=\"delete()\">Delete</button>\r\n                        </span>\r\n                    </mat-menu> \r\n                    <div class=\"mailbox-content\" perfectScrollbar>\r\n                        <div *ngIf=\"mail\">\r\n                            <mat-list class=\"p-0\">\r\n                                <mat-list-item class=\"h-100 py-1\">\r\n                                    <div matLine  fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                        <h2 class=\"subject\">{{mail.subject}}</h2>\r\n                                        <mat-icon class=\"muted-text\">print</mat-icon>\r\n                                    </div>                                    \r\n                                </mat-list-item>\r\n                                <mat-divider></mat-divider> \r\n                                <mat-list-item class=\"h-100 py-1\">\r\n                                    <img *ngIf=\"mail.senderPhoto\" matListAvatar  [src]=\"mail.senderPhoto\">\r\n                                    <img *ngIf=\"!mail.senderPhoto\" matListAvatar src=\"assets/img/users/default-user.jpg\">\r\n                                    <h6 matLine fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                        <span>\r\n                                            <strong class=\"text-truncate\">{{mail.sender}}</strong>\r\n                                            <span *ngIf=\"mail.senderMail\" class=\"email\">&lt;{{mail.senderMail}}&gt;</span>\r\n                                        </span>\r\n                                        <span>{{mail.date}}</span>\r\n                                    </h6>\r\n                                    <span matLine>to me</span>\r\n                                </mat-list-item>\r\n                                <mat-divider></mat-divider>\r\n                            </mat-list>\r\n                            <div class=\"mail-body\" [innerHTML]=\"mail.body\"></div>\r\n                            <div *ngIf=\"mail.attachments && (mail.attachments.length > 0)\" class=\"mail-body\">\r\n                                <mat-divider></mat-divider>\r\n                                <p>\r\n                                    <strong>{{mail.attachments.length}} attachments</strong>\r\n                                    <button mat-icon-button matTooltip=\"Download all attachments\" matTooltipPosition=\"above\">\r\n                                        <mat-icon>file_download</mat-icon>\r\n                                    </button>\r\n                                    <button mat-icon-button matTooltip=\"View all Images\" matTooltipPosition=\"above\">\r\n                                        <mat-icon>pageview</mat-icon>\r\n                                    </button>\r\n                                </p>\r\n                                <div *ngFor=\"let attachment of mail.attachments; let i = index\">\r\n                                    <img [src]=\"attachment\" alt=\"attachment\">\r\n                                    <h3>image-{{i + 1}}.jpg</h3>\r\n                                    <p>\r\n                                        <span>457K</span>\r\n                                        <button mat-icon-button>\r\n                                            <mat-icon>file_download</mat-icon>\r\n                                        </button>\r\n                                        <button mat-icon-button>\r\n                                            <mat-icon>pageview</mat-icon>\r\n                                        </button>\r\n                                    </p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div *ngIf=\"!mail && !newMail\" fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"h-100 empty\">\r\n                            <mat-icon>mail_outline</mat-icon>            \r\n                            \r\n                        </div> \r\n                        <form *ngIf=\"newMail\" [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\"mail-body\"> \r\n                            <mat-form-field class=\"w-100\">\r\n                                <mat-select placeholder=\"Destinataires \" formControlName=\"to\" multiple>\r\n                                    <mat-option *ngFor=\"let usr of users\" [value]=\"usr\">{{usr.nom && ' ' && usr.prenom}}</mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field> \r\n                            <mat-form-field class=\"w-100\">\r\n                                <input matInput placeholder=\"Subject\" formControlName=\"subject\"/>\r\n                            </mat-form-field>    \r\n                            <div fxLayout=\"row\">\r\n                                    <input class=\"w-100\" hidden type=\"file\"  #imgFileInput1 />\r\n                                    <button mat-raised-button type=\"button\" md-button (click)=\"imgFileInput1.click()\">Lier un fichier</button>\r\n                            </div>         \r\n                            \r\n\r\n                            <quill-editor formControlName=\"message\"></quill-editor>                            \r\n                            <div fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                                <button mat-raised-button (click)=\"newMail = false;\" type=\"button\">Cancel</button>\r\n                                <button mat-raised-button color=\"primary\" type=\"submit\">Send</button>\r\n                            </div> \r\n                        </form> \r\n                    </div>\r\n                </div>            \r\n            </mat-sidenav-container>\r\n        </mat-card>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -11884,6 +11884,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../app.settings */ "./src/app/app.settings.ts");
 /* harmony import */ var _mailbox_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mailbox.service */ "./src/app/pages/mailbox/mailbox.service.ts");
+/* harmony import */ var _users_users_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../users/users.service */ "./src/app/pages/users/users.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11898,18 +11899,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var MailboxComponent = /** @class */ (function () {
-    function MailboxComponent(appSettings, formBuilder, snackBar, mailboxService) {
+    function MailboxComponent(appSettings, formBuilder, snackBar, usersService, mailboxService) {
         this.appSettings = appSettings;
         this.formBuilder = formBuilder;
         this.snackBar = snackBar;
+        this.usersService = usersService;
         this.mailboxService = mailboxService;
         this.sidenavOpen = true;
         this.type = 'all';
         this.settings = this.appSettings.settings;
     }
     MailboxComponent.prototype.ngOnInit = function () {
-        this.getMails();
+        var _this = this;
+        //this.getMails();      
+        this.mailboxService.getAllMails().subscribe(function (mails) { return _this.mails = mails; });
+        this.usersService.getUsers().subscribe(function (users) { return _this.users = users; });
         if (window.innerWidth <= 992) {
             this.sidenavOpen = false;
         }
@@ -11924,25 +11930,25 @@ var MailboxComponent = /** @class */ (function () {
         (window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
     };
     MailboxComponent.prototype.getMails = function () {
-        switch (this.type) {
-            case 'all':
-                this.mails = this.mailboxService.getAllMails();
-                break;
-            case 'starred':
-                this.mails = this.mailboxService.getStarredMails();
-                break;
-            case 'sent':
-                this.mails = this.mailboxService.getSentMails();
-                break;
-            case 'drafts':
-                this.mails = this.mailboxService.getDraftMails();
-                break;
-            case 'trash':
-                this.mails = this.mailboxService.getTrashMails();
-                break;
-            default:
-                this.mails = this.mailboxService.getDraftMails();
-        }
+        /*switch (this.type) {
+          case 'all':
+            this.mails = this.mailboxService.getAllMails();
+            break;
+          case 'starred':
+            this.mails =  this.mailboxService.getStarredMails();
+            break;
+          case 'sent':
+            this.mails =  this.mailboxService.getSentMails();
+            break;
+          case 'drafts':
+            this.mails =  this.mailboxService.getDraftMails();
+            break;
+          case 'trash':
+            this.mails =  this.mailboxService.getTrashMails();
+            break;
+          default:
+            this.mails =  this.mailboxService.getDraftMails();
+        }  */
     };
     MailboxComponent.prototype.viewDetail = function (mail) {
         this.mail = this.mailboxService.getMail(mail.id);
@@ -11983,10 +11989,13 @@ var MailboxComponent = /** @class */ (function () {
         this.mail = null;
     };
     MailboxComponent.prototype.onSubmit = function (mail) {
-        console.log(mail);
+        var _this = this;
+        var mm = mail;
         if (this.form.valid) {
-            this.snackBar.open('Mail sent to ' + mail.to + ' successfully!', null, {
-                duration: 2000,
+            mm.to.forEach(function (element) {
+                var o = mm;
+                o.to = element.id;
+                _this.mailboxService.addCons(o);
             });
             this.form.reset();
         }
@@ -12006,11 +12015,12 @@ var MailboxComponent = /** @class */ (function () {
             selector: 'app-mailbox',
             template: __webpack_require__(/*! ./mailbox.component.html */ "./src/app/pages/mailbox/mailbox.component.html"),
             styles: [__webpack_require__(/*! ./mailbox.component.scss */ "./src/app/pages/mailbox/mailbox.component.scss")],
-            providers: [_mailbox_service__WEBPACK_IMPORTED_MODULE_4__["MailboxService"]]
+            providers: [_mailbox_service__WEBPACK_IMPORTED_MODULE_4__["MailboxService"], _users_users_service__WEBPACK_IMPORTED_MODULE_5__["UsersService"]]
         }),
         __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_3__["AppSettings"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
+            _users_users_service__WEBPACK_IMPORTED_MODULE_5__["UsersService"],
             _mailbox_service__WEBPACK_IMPORTED_MODULE_4__["MailboxService"]])
     ], MailboxComponent);
     return MailboxComponent;
@@ -12097,12 +12107,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MailboxService", function() { return MailboxService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _mail_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mail.model */ "./src/app/pages/mailbox/mail.model.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 
 var Mails = [
@@ -12165,10 +12184,24 @@ var Mails = [
         '<p>I\'m a content expert and I\'ve contributed some sensible and informative articles to surplus niche-specific blogs. I realize the value of content and its part in helping out numerous people out there in the space. </p>', false, [], false, false, false, false, false, false)
 ];
 var MailboxService = /** @class */ (function () {
-    function MailboxService() {
+    function MailboxService(afs, afAuth) {
+        this.afs = afs;
+        this.afAuth = afAuth;
     }
+    MailboxService.prototype.addCons = function (cons) {
+        this.itemsCollection = this.afs.collection('consignes');
+        return this.itemsCollection.add(cons);
+        //return this.http.post(this.url, user);
+    };
     MailboxService.prototype.getAllMails = function () {
-        return Mails.filter(function (mail) { return mail.sent == false && mail.draft == false && mail.trash == false; });
+        var _this = this;
+        this.itemsCollection = this.afs.collection('consignes', function (ref) { return ref
+            .where('to', '==', _this.afAuth.auth.currentUser.uid); });
+        return this.itemsCollection.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (actions) { return actions.map(function (a) {
+            var data = a.payload.doc.data();
+            data.id = a.payload.doc.id;
+            return data;
+        }); }));
     };
     MailboxService.prototype.getStarredMails = function () {
         return Mails.filter(function (mail) { return mail.starred == true; });
@@ -12183,10 +12216,12 @@ var MailboxService = /** @class */ (function () {
         return Mails.filter(function (mail) { return mail.trash == true; });
     };
     MailboxService.prototype.getMail = function (id) {
-        return Mails.find(function (mail) { return mail.id === +id; });
+        this.itemsCollection = this.afs.collection('consignes');
+        return this.itemsCollection.doc(id);
     };
     MailboxService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [angularfire2_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"]])
     ], MailboxService);
     return MailboxService;
 }());

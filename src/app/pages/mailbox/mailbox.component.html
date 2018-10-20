@@ -96,7 +96,7 @@
                                 <mat-divider></mat-divider>
                             </mat-list>
                             <div class="mail-body" [innerHTML]="mail.body"></div>
-                            <div *ngIf="mail.attachments.length > 0" class="mail-body">
+                            <div *ngIf="mail.attachments && (mail.attachments.length > 0)" class="mail-body">
                                 <mat-divider></mat-divider>
                                 <p>
                                     <strong>{{mail.attachments.length}} attachments</strong>
@@ -124,18 +124,23 @@
                         </div>
                         <div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                             <mat-icon>mail_outline</mat-icon>            
-                            <p>Select a mail to read</p>
+                            
                         </div> 
                         <form *ngIf="newMail" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="mail-body"> 
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="To" formControlName="to">
+                                <mat-select placeholder="Destinataires " formControlName="to" multiple>
+                                    <mat-option *ngFor="let usr of users" [value]="usr">{{usr.nom && ' ' && usr.prenom}}</mat-option>
+                                </mat-select>
                             </mat-form-field> 
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Cc/Bcc" formControlName="cc">
-                            </mat-form-field> 
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Subject" formControlName="subject">
-                            </mat-form-field>                          
+                                <input matInput placeholder="Subject" formControlName="subject"/>
+                            </mat-form-field>    
+                            <div fxLayout="row">
+                                    <input class="w-100" hidden type="file"  #imgFileInput1 />
+                                    <button mat-raised-button type="button" md-button (click)="imgFileInput1.click()">Lier un fichier</button>
+                            </div>         
+                            
+
                             <quill-editor formControlName="message"></quill-editor>                            
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <button mat-raised-button (click)="newMail = false;" type="button">Cancel</button>

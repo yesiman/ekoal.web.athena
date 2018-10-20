@@ -5,33 +5,40 @@ import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import { Mail } from './mail.model';
 import { MailboxService } from './mailbox.service';
+import { User } from '../users/user.model';
+import { UsersService } from '../users/users.service';
 
 @Component({
   selector: 'app-mailbox',
   templateUrl: './mailbox.component.html',
   styleUrls: ['./mailbox.component.scss'],
-  providers: [ MailboxService ]
+  providers: [ MailboxService,UsersService ]
 })
 export class MailboxComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
   public settings: Settings;
   public sidenavOpen:boolean = true;
   public mails: Array<Mail>;
-  public mail: Mail;
+  public mail: any;
   public newMail: boolean;
   public type:string = 'all';
   public searchText: string;
   public form:FormGroup;
 
+  public users: User[];
+
   constructor(public appSettings:AppSettings, 
               public formBuilder: FormBuilder, 
               public snackBar: MatSnackBar,
+              public usersService:UsersService,
               private mailboxService:MailboxService) { 
     this.settings = this.appSettings.settings; 
   }
 
   ngOnInit() {
-    this.getMails();      
+    //this.getMails();      
+    this.mailboxService.getAllMails().subscribe(mails => this.mails = mails);    
+    this.usersService.getUsers().subscribe(users => this.users = users);    
     if(window.innerWidth <= 992){
       this.sidenavOpen = false;
     }
@@ -41,6 +48,7 @@ export class MailboxComponent implements OnInit {
       'subject': null,    
       'message': null
     });  
+    
   }
 
   @HostListener('window:resize')
@@ -49,7 +57,7 @@ export class MailboxComponent implements OnInit {
   }
 
   public getMails(){
-    switch (this.type) {
+    /*switch (this.type) {
       case 'all': 
         this.mails = this.mailboxService.getAllMails();
         break;
@@ -67,15 +75,16 @@ export class MailboxComponent implements OnInit {
         break;
       default:
         this.mails =  this.mailboxService.getDraftMails();
-    }  
+    }  */
   }
 
-  public viewDetail(mail){
+  public viewDetail(mail){   
     this.mail = this.mailboxService.getMail(mail.id);    
-    this.mails.forEach(m => m.selected = false);
-    this.mail.selected = true;
-    this.mail.unread = false;
-    this.newMail = false;
+      this.mails.forEach(m => m.selected = false);
+      this.mail.selected = true;
+      this.mail.unread = false;
+      this.newMail = false;
+    
     if(window.innerWidth <= 992){
       this.sidenav.close(); 
     }
@@ -116,10 +125,12 @@ export class MailboxComponent implements OnInit {
   }
 
   public onSubmit(mail){
-    console.log(mail)
+    let mm = mail;
     if (this.form.valid) {
-      this.snackBar.open('Mail sent to ' + mail.to + ' successfully!', null, {
-        duration: 2000,
+      mm.to.forEach(element => {
+        var o = mm;
+        o.to = element.id;
+        this.mailboxService.addCons(o);
       });
       this.form.reset();     
     }

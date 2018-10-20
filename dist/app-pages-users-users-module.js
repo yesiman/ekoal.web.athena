@@ -5129,7 +5129,7 @@ var NgxPaginationModule = (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title><span *ngIf=\"!user.id\">Add</span><span *ngIf=\"user.id\">Edit</span> user</h1>\r\n<div mat-dialog-content>\r\n    <form [formGroup]=\"form\" class=\"user-form\">      \r\n        <mat-tab-group class=\"vertical-tabs\">\r\n            <mat-tab label=\"Basic\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <mat-placeholder><mat-icon>person</mat-icon> Username</mat-placeholder>\r\n                        <input matInput formControlName=\"username\" required>\r\n                        <mat-error *ngIf=\"form.controls.username.errors?.required\">Username is required</mat-error>\r\n                        <mat-error *ngIf=\"form.controls.username.hasError('minlength')\">Username isn't long enough, minimum of 5 characters</mat-error>\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <mat-placeholder><mat-icon>vpn_key</mat-icon> Password</mat-placeholder>\r\n                        <input matInput formControlName=\"password\" required [type]=\"passwordHide ? 'password' : 'text'\">\r\n                        <mat-icon matSuffix (click)=\"passwordHide = !passwordHide\">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>\r\n                        <mat-error *ngIf=\"form.controls.password.errors?.required\">Password is required</mat-error>\r\n                        <mat-error *ngIf=\"form.controls.password.hasError('minlength')\">Password isn't long enough, minimum of 6 characters</mat-error>\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Personal\" formGroupName=\"profile\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Name\" formControlName=\"name\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Surname\" formControlName=\"surname\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput [matDatepicker]=\"birthday\" placeholder=\"Birthday\" formControlName=\"birthday\">\r\n                        <mat-datepicker-toggle matSuffix [for]=\"birthday\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #birthday></mat-datepicker>\r\n                    </mat-form-field>\r\n                    <mat-radio-group formControlName=\"gender\">\r\n                        <mat-radio-button value=\"male\" labelPosition=\"before\">Male</mat-radio-button>\r\n                        <mat-radio-button value=\"female\" labelPosition=\"before\">Female</mat-radio-button>\r\n                    </mat-radio-group>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Image url\" formControlName=\"image\">\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Work\" formGroupName=\"work\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Company\" formControlName=\"company\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Position\" formControlName=\"position\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Salary\" formControlName=\"salary\">\r\n                        <span matPrefix>$&nbsp;</span>\r\n                        <span matSuffix>.00</span>\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Contacts\" formGroupName=\"contacts\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Email\" formControlName=\"email\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Phone\" formControlName=\"phone\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Address\" formControlName=\"address\">\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Social life\" formGroupName=\"social\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Facebook\" formControlName=\"facebook\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Twitter\" formControlName=\"twitter\">\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Google\" formControlName=\"google\">\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Settings\" formGroupName=\"settings\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-checkbox formControlName=\"isActive\">Active</mat-checkbox>\r\n                    <mat-checkbox formControlName=\"isDeleted\">Blocked</mat-checkbox>\r\n                    <p *ngIf=\"user.id\"><span>Registration date:</span> <i>{{user.settings.registrationDate | date:\"dd MMMM, yyyy 'at' HH:mm\" }}</i></p> \r\n                    <p *ngIf=\"user.id\"><span>Last joined date:</span> <i>{{user.settings.joinedDate | date:\"dd MMMM, yyyy 'at' HH:mm\" }}</i> </p>     \r\n                </div>\r\n            </mat-tab>\r\n        </mat-tab-group>\r\n    </form>\r\n</div>\r\n<div mat-dialog-actions fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <button mat-raised-button color=\"primary\" [mat-dialog-close]=\"form.value\" [disabled]=\"!form.valid\"><span *ngIf=\"!user.id\">Save</span><span *ngIf=\"user.id\">Update</span></button>\r\n    <button mat-raised-button color=\"warn\" (click)=\"close()\">Cancel</button>\r\n</div>"
+module.exports = "<h1 mat-dialog-title><span *ngIf=\"!user.id\">Ajout</span><span *ngIf=\"user.id\">Modification</span> collaborateur</h1>\r\n<div mat-dialog-content>\r\n    <form [formGroup]=\"form\" class=\"user-form\">      \r\n        <mat-tab-group class=\"vertical-tabs\">\r\n            <mat-tab label=\"Principales\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <mat-placeholder><mat-icon>user</mat-icon> Nom</mat-placeholder>\r\n                        <input matInput formControlName=\"nom\" required>\r\n                        <mat-error *ngIf=\"form.controls.nom.errors?.required\">Username is required</mat-error>\r\n                        <mat-error *ngIf=\"form.controls.nom.hasError('minlength')\">Username isn't long enough, minimum of 5 characters</mat-error>\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <mat-placeholder><mat-icon>user</mat-icon> Prénom</mat-placeholder>\r\n                        <input matInput formControlName=\"prenom\" required>\r\n                        <mat-error *ngIf=\"form.controls.prenom.errors?.required\">Username is required</mat-error>\r\n                        <mat-error *ngIf=\"form.controls.prenom.hasError('minlength')\">Username isn't long enough, minimum of 5 characters</mat-error>\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Authentification\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <mat-placeholder><mat-icon>vpn_key</mat-icon> Password</mat-placeholder>\r\n                        <input matInput formControlName=\"password\" required [type]=\"passwordHide ? 'prenom' : 'text'\">\r\n                        <mat-icon matSuffix (click)=\"passwordHide = !passwordHide\">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>\r\n                        <mat-error *ngIf=\"form.controls.password.errors?.required\">Password is required</mat-error>\r\n                        <mat-error *ngIf=\"form.controls.password.hasError('minlength')\">Password isn't long enough, minimum of 6 characters</mat-error>\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n            <mat-tab label=\"Contacts\" formGroupName=\"contacts\">\r\n                <div fxLayout=\"column\" class=\"form-field-outer\">\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Email\" formControlName=\"email\" required>\r\n                    </mat-form-field>\r\n                    <mat-form-field class=\"w-100\">\r\n                        <input matInput placeholder=\"Phone\" formControlName=\"phone\">\r\n                    </mat-form-field>\r\n                </div>\r\n            </mat-tab>\r\n        </mat-tab-group>\r\n    </form>\r\n</div>\r\n<div mat-dialog-actions fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <button mat-raised-button color=\"primary\" [mat-dialog-close]=\"form.value\" (click)=\"valid()\" [disabled]=\"!form.valid\"><span *ngIf=\"!user.id\">Save</span><span *ngIf=\"user.id\">Update</span></button>\r\n    <button mat-raised-button color=\"warn\" (click)=\"close()\">Cancel</button>\r\n</div>"
 
 /***/ }),
 
@@ -5158,6 +5158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../user.model */ "./src/app/pages/users/user.model.ts");
+/* harmony import */ var _users_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../users.service */ "./src/app/pages/users/users.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5174,44 +5175,23 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var UserDialogComponent = /** @class */ (function () {
-    function UserDialogComponent(dialogRef, user, fb) {
+    function UserDialogComponent(dialogRef, user, fb, usersService) {
         this.dialogRef = dialogRef;
         this.user = user;
         this.fb = fb;
+        this.usersService = usersService;
         this.passwordHide = true;
         this.form = this.fb.group({
             id: null,
-            username: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5)])],
+            nom: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5)])],
+            prenom: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5)])],
             password: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(6)])],
-            profile: this.fb.group({
-                name: null,
-                surname: null,
-                birthday: null,
-                gender: null,
-                image: null
-            }),
-            work: this.fb.group({
-                company: null,
-                position: null,
-                salary: null
-            }),
             contacts: this.fb.group({
                 email: null,
                 phone: null,
-                address: null
             }),
-            social: this.fb.group({
-                facebook: null,
-                twitter: null,
-                google: null
-            }),
-            settings: this.fb.group({
-                isActive: null,
-                isDeleted: null,
-                registrationDate: null,
-                joinedDate: null
-            })
         });
     }
     UserDialogComponent.prototype.ngOnInit = function () {
@@ -5220,26 +5200,32 @@ var UserDialogComponent = /** @class */ (function () {
         }
         else {
             this.user = new _user_model__WEBPACK_IMPORTED_MODULE_3__["User"]();
-            this.user.profile = new _user_model__WEBPACK_IMPORTED_MODULE_3__["UserProfile"]();
-            this.user.work = new _user_model__WEBPACK_IMPORTED_MODULE_3__["UserWork"]();
+            //this.user.profile = new UserProfile();
+            this.user.work = 0;
             this.user.contacts = new _user_model__WEBPACK_IMPORTED_MODULE_3__["UserContacts"]();
-            this.user.social = new _user_model__WEBPACK_IMPORTED_MODULE_3__["UserSocial"]();
-            this.user.settings = new _user_model__WEBPACK_IMPORTED_MODULE_3__["UserSettings"]();
+            //this.user.social = new UserSocial();
+            //this.user.settings = new UserSettings();
         }
     };
     UserDialogComponent.prototype.close = function () {
         this.dialogRef.close();
     };
+    UserDialogComponent.prototype.valid = function () {
+        //alert("valid");
+        console.log(this.user);
+        //this.usersService.addUser(this.user);
+    };
     UserDialogComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-dialog',
             template: __webpack_require__(/*! ./user-dialog.component.html */ "./src/app/pages/users/user-dialog/user-dialog.component.html"),
-            styles: [__webpack_require__(/*! ./user-dialog.component.scss */ "./src/app/pages/users/user-dialog/user-dialog.component.scss")]
+            styles: [__webpack_require__(/*! ./user-dialog.component.scss */ "./src/app/pages/users/user-dialog/user-dialog.component.scss")],
+            providers: [_users_service__WEBPACK_IMPORTED_MODULE_4__["UsersService"]]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
             _user_model__WEBPACK_IMPORTED_MODULE_3__["User"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _users_service__WEBPACK_IMPORTED_MODULE_4__["UsersService"]])
     ], UserDialogComponent);
     return UserDialogComponent;
 }());
@@ -5252,27 +5238,24 @@ var UserDialogComponent = /** @class */ (function () {
 /*!*******************************************!*\
   !*** ./src/app/pages/users/user.model.ts ***!
   \*******************************************/
-/*! exports provided: User, UserProfile, UserWork, UserContacts, UserSocial, UserSettings */
+/*! exports provided: User, UserWork, UserContacts */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfile", function() { return UserProfile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserWork", function() { return UserWork; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserContacts", function() { return UserContacts; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSocial", function() { return UserSocial; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSettings", function() { return UserSettings; });
+var job;
+(function (job) {
+    job[job["tech"] = 0] = "tech";
+    job[job["ouv"] = 1] = "ouv";
+    job[job["man"] = 2] = "man";
+})(job || (job = {}));
 var User = /** @class */ (function () {
     function User() {
     }
     return User;
-}());
-
-var UserProfile = /** @class */ (function () {
-    function UserProfile() {
-    }
-    return UserProfile;
 }());
 
 var UserWork = /** @class */ (function () {
@@ -5287,18 +5270,6 @@ var UserContacts = /** @class */ (function () {
     return UserContacts;
 }());
 
-var UserSocial = /** @class */ (function () {
-    function UserSocial() {
-    }
-    return UserSocial;
-}());
-
-var UserSettings = /** @class */ (function () {
-    function UserSettings() {
-    }
-    return UserSettings;
-}());
-
 
 
 /***/ }),
@@ -5310,7 +5281,7 @@ var UserSettings = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"space-between center\" class=\"flex-p\">\r\n    <div fxLayout=\"row\">\r\n        <mat-button-toggle-group #controls=\"matButtonToggleGroup\">            \r\n            <mat-button-toggle value=\"add\" (click)=\"openUserDialog(null)\">\r\n                <mat-icon>person_add</mat-icon>\r\n            </mat-button-toggle>\r\n            <mat-button-toggle value=\"search\">\r\n                <mat-icon>search</mat-icon>\r\n            </mat-button-toggle>           \r\n        </mat-button-toggle-group>            \r\n    </div>\r\n    <form class=\"user-search\" [class.show]=\"controls.value == 'search'\">\r\n        <mat-form-field class=\"user-search-input\">\r\n            <input matInput placeholder=\"Search user by name...\" [(ngModel)]=\"searchText\" name=\"search\">\r\n        </mat-form-field>\r\n    </form>\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <mat-button-toggle-group #viewType=\"matButtonToggleGroup\">            \r\n            <mat-button-toggle value=\"grid\" checked=\"true\">\r\n                <mat-icon>view_module</mat-icon>\r\n            </mat-button-toggle>\r\n            <mat-button-toggle value=\"list\">\r\n                <mat-icon>view_list</mat-icon>\r\n            </mat-button-toggle>           \r\n        </mat-button-toggle-group>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"viewType.value == 'grid'\" fxLayout=\"row wrap\">    \r\n    <div *ngFor=\"let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }\" fxFlex=\"100\" fxFlex.gt-md=\"33.3\" fxFlex.md=\"50\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0\">  \r\n            <div class=\"bg-primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <h3 *ngIf=\"!user.settings.isDeleted\" class=\"user-name\">{{user.profile.name}} {{user.profile.surname}}</h3> \r\n                <h3 *ngIf=\"user.settings.isDeleted\" class=\"user-name\">User blocked</h3>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"menu\" #menuTrigger=\"matMenuTrigger\">\r\n                    <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n            </div>\r\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\r\n                <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                    <button mat-menu-item (click)=\"openUserDialog(user)\">\r\n                        <mat-icon>mode_edit</mat-icon>\r\n                        <span>Edit</span>\r\n                    </button>\r\n                    <button mat-menu-item (click)=\"deleteUser(user);\">\r\n                        <mat-icon>delete</mat-icon>\r\n                        <span>Delete</span>\r\n                    </button>\r\n                </span>\r\n            </mat-menu>\r\n            <div class=\"user-content\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\">\r\n                <div fxFlex=\"30\" fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n                    <div class=\"user-img\">\r\n                        <img *ngIf=\"user.profile.image\" [src]=\"user.profile.image\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">\r\n                        <img *ngIf=\"!user.profile.image\" src=\"assets/img/users/default-user.jpg\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">  \r\n                        <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"warn-color\">block</mat-icon>\r\n                    </div>                                            \r\n                    <div class=\"user-social\">\r\n                        <mat-slide-toggle color=\"primary\" [checked]=\"user.settings.isDeleted\" (change)=\"user.settings.isDeleted = !user.settings.isDeleted\"></mat-slide-toggle>\r\n                    </div>\r\n                </div>\r\n                <div fxFlex=\"70\" fxLayout=\"column\" class=\"user-details transition-2\" [class.blocked]=\"user.settings.isDeleted\">\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">card_membership</mat-icon>\r\n                        <span>{{user.work.position}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">mail_outline</mat-icon>\r\n                        <span>{{user.contacts.email}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">call</mat-icon>\r\n                        <span>{{user.contacts.phone}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">location_on</mat-icon>\r\n                        <span>{{user.contacts.address}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">date_range</mat-icon>\r\n                        <span>Joined {{user.settings.joinedDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                    </p>\r\n                </div>\r\n            </div>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"viewType.value == 'list'\" fxLayout=\"row wrap\">\r\n    <div *ngFor=\"let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }\" fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0\">  \r\n            <div class=\"bg-primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <h3 *ngIf=\"!user.settings.isDeleted\" class=\"user-name\">{{user.profile.name}} {{user.profile.surname}}</h3> \r\n                <h3 *ngIf=\"user.settings.isDeleted\" class=\"user-name\">User blocked</h3>\r\n                <button mat-icon-button [matMenuTriggerFor]=\"menu\" #menuTrigger=\"matMenuTrigger\">\r\n                    <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n            </div>\r\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\r\n                <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                    <button mat-menu-item (click)=\"openUserDialog(user);\">\r\n                        <mat-icon>mode_edit</mat-icon>\r\n                        <span>Edit</span>\r\n                    </button>\r\n                    <button mat-menu-item (click)=\"deleteUser(user);\">\r\n                        <mat-icon>delete</mat-icon>\r\n                        <span>Delete</span>\r\n                    </button>\r\n                </span>\r\n            </mat-menu>\r\n            <div class=\"user-content\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\">\r\n                <div fxFlex=\"20\" fxFlex.xs=\"30\" fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n                    <div class=\"user-img\">\r\n                        <img *ngIf=\"user.profile.image\" [src]=\"user.profile.image\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\"> \r\n                        <img *ngIf=\"!user.profile.image\" src=\"assets/img/users/default-user.jpg\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">  \r\n                        <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"warn-color\">block</mat-icon>   \r\n                    </div>                                            \r\n                    <div class=\"user-social\">\r\n                        <mat-slide-toggle color=\"primary\" [checked]=\"user.settings.isDeleted\" (change)=\"user.settings.isDeleted = !user.settings.isDeleted\"></mat-slide-toggle>\r\n                    </div>\r\n                </div>\r\n                <div fxFlex=\"80\" fxFlex.xs=\"70\" fxLayout=\"row\" fxLayout.xs=\"column\" class=\"user-details transition-2\" [class.blocked]=\"user.settings.isDeleted\">\r\n                    <div fxFlex=\"30\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">business</mat-icon>\r\n                            <span>{{user.work.company}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">card_membership</mat-icon>\r\n                            <span>{{user.work.position}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">attach_money</mat-icon>\r\n                            <span>{{user.work.salary}}</span>\r\n                        </p>                                               \r\n                    </div>\r\n                    <div fxFlex=\"30\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">mail_outline</mat-icon>\r\n                            <span>{{user.contacts.email}}</span>\r\n                        </p> \r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">call</mat-icon>\r\n                            <span>{{user.contacts.phone}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">location_on</mat-icon>\r\n                            <span>{{user.contacts.address}}</span>\r\n                        </p>                        \r\n                    </div>\r\n                    <div fxFlex=\"40\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">event_available</mat-icon>\r\n                            <span>Registration {{user.settings.registrationDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">date_range</mat-icon>\r\n                            <span>Joined {{user.settings.joinedDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                        </p> \r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"muted-text\">person_outline</mat-icon>\r\n                            <mat-icon *ngIf=\"!user.settings.isDeleted\" class=\"muted-text\">person</mat-icon>\r\n                            <span>{{ (user.settings.isDeleted) ? 'Blocked' : 'Active' }}</span>\r\n                        </p>                       \r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"users\" fxLayout=\"row wrap\">\r\n    <div fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0 text-center\">           \r\n            <pagination-controls class=\"gradus-pagination\" autoHide=\"true\" maxSize=\"3\" (pageChange)=\"onPageChanged($event)\"></pagination-controls>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!users\" fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"user-spinner\">   \r\n    <mat-spinner color=\"primary\"></mat-spinner>    \r\n</div>\r\n\r\n"
+module.exports = "<div fxLayout=\"row\" fxLayoutAlign=\"space-between center\" class=\"flex-p\">\r\n    <div fxLayout=\"row\">\r\n        <mat-button-toggle-group #controls=\"matButtonToggleGroup\">            \r\n            <mat-button-toggle value=\"add\" (click)=\"openUserDialog(null)\">\r\n                <mat-icon>person_add</mat-icon>\r\n            </mat-button-toggle>\r\n            <mat-button-toggle value=\"search\">\r\n                <mat-icon>search</mat-icon>\r\n            </mat-button-toggle>           \r\n        </mat-button-toggle-group>            \r\n    </div>\r\n    <form class=\"user-search\" [class.show]=\"controls.value == 'search'\">\r\n        <mat-form-field class=\"user-search-input\">\r\n            <input matInput placeholder=\"Search user by name...\" [(ngModel)]=\"searchText\" name=\"search\">\r\n        </mat-form-field>\r\n    </form>\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <mat-button-toggle-group #viewType=\"matButtonToggleGroup\">            \r\n            <mat-button-toggle value=\"grid\" checked=\"true\">\r\n                <mat-icon>view_module</mat-icon>\r\n            </mat-button-toggle>\r\n            <mat-button-toggle value=\"list\">\r\n                <mat-icon>view_list</mat-icon>\r\n            </mat-button-toggle>           \r\n        </mat-button-toggle-group>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"viewType.value == 'grid'\" fxLayout=\"row wrap\">    \r\n    <div *ngFor=\"let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }\" fxFlex=\"100\" fxFlex.gt-md=\"33.3\" fxFlex.md=\"50\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0\">  \r\n        <div class=\"bg-primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">            \r\n                <h3 class=\"user-name\">{{user.nom}} {{user.prenom}}</h3> \r\n                <button mat-icon-button [matMenuTriggerFor]=\"menu\" #menuTrigger=\"matMenuTrigger\">\r\n                    <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n                <!--<div class=\"user-img\">\r\n                    <img *ngIf=\"user.profile.image\" [src]=\"user.profile.image\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">\r\n                    <img *ngIf=\"!user.profile.image\" src=\"assets/img/users/default-user.jpg\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">  \r\n                    <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"warn-color\">block</mat-icon>\r\n                </div>                                            \r\n                <div class=\"user-social\">\r\n                    <mat-slide-toggle color=\"primary\" [checked]=\"user.settings.isDeleted\" (change)=\"user.settings.isDeleted = !user.settings.isDeleted\"></mat-slide-toggle>\r\n                </div>-->\r\n            </div>\r\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\r\n                <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                    <button mat-menu-item (click)=\"openUserDialog(user)\">\r\n                        <mat-icon>mode_edit</mat-icon>\r\n                        <span>Edit</span>\r\n                    </button>\r\n                    <button mat-menu-item (click)=\"deleteUser(user);\">\r\n                        <mat-icon>delete</mat-icon>\r\n                        <span>Delete</span>\r\n                    </button>\r\n                </span>\r\n            </mat-menu>\r\n            <div class=\"user-content\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\">\r\n                \r\n                <div fxFlex=\"70\" fxLayout=\"column\" class=\"user-details transition-2\" >\r\n                    <!--<p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">card_membership</mat-icon>\r\n                        <span>{{user.work.position}}</span>\r\n                    </p>-->\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">mail_outline</mat-icon>\r\n                        <span>{{user.contacts.email}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">call</mat-icon>\r\n                        <span>{{user.contacts.phone}}</span>\r\n                    </p>\r\n                    <!--<p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">location_on</mat-icon>\r\n                        <span>{{user.contacts.address}}</span>\r\n                    </p>\r\n                    <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                        <mat-icon class=\"muted-text\">date_range</mat-icon>\r\n                        <span>Joined {{user.settings.joinedDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                    </p>-->\r\n                </div>\r\n            </div>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"viewType.value == 'list'\" fxLayout=\"row wrap\">\r\n    <div *ngFor=\"let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }\" fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0\">  \r\n            <div class=\"bg-primary\" fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n                <h3 class=\"user-name\">{{user.nom}} {{user.prenom}}</h3> \r\n                <!--<h3 *ngIf=\"user.settings.isDeleted\" class=\"user-name\">User blocked</h3>-->\r\n                <button mat-icon-button [matMenuTriggerFor]=\"menu\" #menuTrigger=\"matMenuTrigger\">\r\n                    <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n            </div>\r\n            <mat-menu #menu=\"matMenu\" xPosition=\"before\">\r\n                <span (mouseleave)=\"menuTrigger.closeMenu()\">\r\n                    <button mat-menu-item (click)=\"openUserDialog(user);\">\r\n                        <mat-icon>mode_edit</mat-icon>\r\n                        <span>Edit</span>\r\n                    </button>\r\n                    <button mat-menu-item (click)=\"deleteUser(user);\">\r\n                        <mat-icon>delete</mat-icon>\r\n                        <span>Delete</span>\r\n                    </button>\r\n                </span>\r\n            </mat-menu>\r\n            <div class=\"user-content\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\">\r\n                <div fxFlex=\"20\" fxFlex.xs=\"30\" fxLayout=\"column\" fxLayoutAlign=\"center center\">\r\n                <!--    <div class=\"user-img\">\r\n                        <img *ngIf=\"user.profile.image\" [src]=\"user.profile.image\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\"> \r\n                        <img *ngIf=\"!user.profile.image\" src=\"assets/img/users/default-user.jpg\" class=\"transition-2\" [class.blocked]=\"user.settings.isDeleted\">  \r\n                        <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"warn-color\">block</mat-icon>   \r\n                    </div>                                            \r\n                    <div class=\"user-social\">\r\n                        <mat-slide-toggle color=\"primary\" [checked]=\"user.settings.isDeleted\" (change)=\"user.settings.isDeleted = !user.settings.isDeleted\"></mat-slide-toggle>\r\n                    </div>-->\r\n                </div>\r\n                <div fxFlex=\"80\" fxFlex.xs=\"70\" fxLayout=\"row\" fxLayout.xs=\"column\" class=\"user-details transition-2\">\r\n                    <!--<div fxFlex=\"30\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">business</mat-icon>\r\n                            <span>{{user.work.company}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">card_membership</mat-icon>\r\n                            <span>{{user.work.position}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">attach_money</mat-icon>\r\n                            <span>{{user.work.salary}}</span>\r\n                        </p>                                               \r\n                    </div>-->\r\n                    <div fxFlex=\"30\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">mail_outline</mat-icon>\r\n                            <span>{{user.contacts.email}}</span>\r\n                        </p> \r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">call</mat-icon>\r\n                            <span>{{user.contacts.phone}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">location_on</mat-icon>\r\n                            <span>{{user.contacts.address}}</span>\r\n                        </p>                        \r\n                    </div>\r\n                    <!--<div fxFlex=\"40\" fxFlex.xs=\"100\" fxLayout=\"column\">\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">event_available</mat-icon>\r\n                            <span>Registration {{user.settings.registrationDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                        </p>\r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon class=\"muted-text\">date_range</mat-icon>\r\n                            <span>Joined {{user.settings.joinedDate | date:\"dd MMMM, yyyy 'at' HH:mm\"}}</span>\r\n                        </p> \r\n                        <p fxLayout=\"row\" fxLayoutAlign=\"start center\">\r\n                            <mat-icon *ngIf=\"user.settings.isDeleted\" class=\"muted-text\">person_outline</mat-icon>\r\n                            <mat-icon *ngIf=\"!user.settings.isDeleted\" class=\"muted-text\">person</mat-icon>\r\n                            <span>{{ (user.settings.isDeleted) ? 'Blocked' : 'Active' }}</span>\r\n                        </p>                       \r\n                    </div>-->\r\n                </div>\r\n            </div>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"users\" fxLayout=\"row wrap\">\r\n    <div fxFlex=\"100\" class=\"flex-p\"> \r\n        <mat-card class=\"p-0 text-center\">           \r\n            <pagination-controls class=\"gradus-pagination\" autoHide=\"true\" maxSize=\"3\" (pageChange)=\"onPageChanged($event)\"></pagination-controls>\r\n        </mat-card>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"!users\" fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"user-spinner\">   \r\n    <mat-spinner color=\"primary\"></mat-spinner>    \r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -5340,6 +5311,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.settings */ "./src/app/app.settings.ts");
 /* harmony import */ var _users_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./users.service */ "./src/app/pages/users/users.service.ts");
 /* harmony import */ var _user_dialog_user_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user-dialog/user-dialog.component */ "./src/app/pages/users/user-dialog/user-dialog.component.ts");
+/* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5354,12 +5326,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UsersComponent = /** @class */ (function () {
-    function UsersComponent(appSettings, dialog, usersService) {
+    function UsersComponent(appSettings, dialog, usersService, afs) {
         this.appSettings = appSettings;
         this.dialog = dialog;
         this.usersService = usersService;
-        this.settings = this.appSettings.settings;
+        this.afs = afs;
     }
     UsersComponent.prototype.ngOnInit = function () {
         this.getUsers();
@@ -5367,19 +5340,20 @@ var UsersComponent = /** @class */ (function () {
     UsersComponent.prototype.getUsers = function () {
         var _this = this;
         this.users = null; //for show spinner each time
+        this.settings = this.appSettings.settings;
+        //this.itemsCollection = this.afs.collection<any>('users');
+        //alert("start");
+        //this.items = this.itemsCollection.valueChanges();
         this.usersService.getUsers().subscribe(function (users) { return _this.users = users; });
     };
     UsersComponent.prototype.addUser = function (user) {
-        var _this = this;
-        this.usersService.addUser(user).subscribe(function (user) { return _this.getUsers(); });
+        this.usersService.addUser(user);
     };
     UsersComponent.prototype.updateUser = function (user) {
-        var _this = this;
-        this.usersService.updateUser(user).subscribe(function (user) { return _this.getUsers(); });
+        this.usersService.updateUser(user);
     };
     UsersComponent.prototype.deleteUser = function (user) {
-        var _this = this;
-        this.usersService.deleteUser(user.id).subscribe(function (user) { return _this.getUsers(); });
+        this.usersService.deleteUser(user.id);
     };
     UsersComponent.prototype.onPageChanged = function (event) {
         this.page = event;
@@ -5396,6 +5370,7 @@ var UsersComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(_user_dialog_user_dialog_component__WEBPACK_IMPORTED_MODULE_4__["UserDialogComponent"], {
             data: user
         });
+        console.log();
         dialogRef.afterClosed().subscribe(function (user) {
             if (user) {
                 (user.id) ? _this.updateUser(user) : _this.addUser(user);
@@ -5412,7 +5387,8 @@ var UsersComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
-            _users_service__WEBPACK_IMPORTED_MODULE_3__["UsersService"]])
+            _users_service__WEBPACK_IMPORTED_MODULE_3__["UsersService"],
+            angularfire2_firestore__WEBPACK_IMPORTED_MODULE_5__["AngularFirestore"]])
     ], UsersComponent);
     return UsersComponent;
 }());
@@ -5813,57 +5789,6 @@ var UsersModule = /** @class */ (function () {
         })
     ], UsersModule);
     return UsersModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pages/users/users.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/pages/users/users.service.ts ***!
-  \**********************************************/
-/*! exports provided: UsersService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return UsersService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var UsersService = /** @class */ (function () {
-    function UsersService(http) {
-        this.http = http;
-        this.url = "api/users";
-    }
-    UsersService.prototype.getUsers = function () {
-        return this.http.get(this.url);
-    };
-    UsersService.prototype.addUser = function (user) {
-        return this.http.post(this.url, user);
-    };
-    UsersService.prototype.updateUser = function (user) {
-        return this.http.put(this.url, user);
-    };
-    UsersService.prototype.deleteUser = function (id) {
-        return this.http.delete(this.url + "/" + id);
-    };
-    UsersService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], UsersService);
-    return UsersService;
 }());
 
 

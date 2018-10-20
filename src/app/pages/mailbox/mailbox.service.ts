@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Mail } from './mail.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 let Mails = [
     new Mail(
@@ -271,9 +275,28 @@ let Mails = [
   
 @Injectable()
 export class MailboxService {
+    items: Observable<any[]>;
+    private itemsCollection: AngularFirestoreCollection<any>;
+    constructor(private afs: AngularFirestore,public afAuth: AngularFireAuth) { }
+    addCons(cons:Mail){	    
+      
+        this.itemsCollection = this.afs.collection<any>('consignes');
+        return this.itemsCollection.add(cons);    
+        
+        //return this.http.post(this.url, user);
+    }
 
     public getAllMails() {
-        return Mails.filter(mail => mail.sent == false && mail.draft == false && mail.trash == false);
+        this.itemsCollection = this.afs.collection<any>('consignes',ref => ref
+        .where('to', '==', this.afAuth.auth.currentUser.uid)
+      );
+        return this.itemsCollection.snapshotChanges().pipe( 
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as any;
+                data.id = a.payload.doc.id;
+                return data;
+              }))
+            );
     }
     
     public getStarredMails() {
@@ -292,7 +315,8 @@ export class MailboxService {
         return Mails.filter(mail => mail.trash == true);
     }
 
-    public getMail(id: number | string) {
-        return Mails.find(mail => mail.id === +id);
+    public getMail(id:string) {
+        this.itemsCollection = this.afs.collection<any>('consignes');
+        return this.itemsCollection.doc(id);   
     }
 }

@@ -29,12 +29,19 @@
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">    
     <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }" fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p"> 
         <mat-card class="p-0">  
-            <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h3 *ngIf="!user.settings.isDeleted" class="user-name">{{user.profile.name}} {{user.profile.surname}}</h3> 
-                <h3 *ngIf="user.settings.isDeleted" class="user-name">User blocked</h3>
+        <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">            
+                <h3 class="user-name">{{user.nom}} {{user.prenom}}</h3> 
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
                 </button>
+                <!--<div class="user-img">
+                    <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted">
+                    <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">  
+                    <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>
+                </div>                                            
+                <div class="user-social">
+                    <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
+                </div>-->
             </div>
             <mat-menu #menu="matMenu" xPosition="before">
                 <span (mouseleave)="menuTrigger.closeMenu()">
@@ -49,21 +56,12 @@
                 </span>
             </mat-menu>
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
-                <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
-                    <div class="user-img">
-                        <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted">
-                        <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">  
-                        <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>
-                    </div>                                            
-                    <div class="user-social">
-                        <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
-                    </div>
-                </div>
-                <div fxFlex="70" fxLayout="column" class="user-details transition-2" [class.blocked]="user.settings.isDeleted">
-                    <p fxLayout="row" fxLayoutAlign="start center">
+                
+                <div fxFlex="70" fxLayout="column" class="user-details transition-2" >
+                    <!--<p fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="muted-text">card_membership</mat-icon>
                         <span>{{user.work.position}}</span>
-                    </p>
+                    </p>-->
                     <p fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="muted-text">mail_outline</mat-icon>
                         <span>{{user.contacts.email}}</span>
@@ -72,14 +70,14 @@
                         <mat-icon class="muted-text">call</mat-icon>
                         <span>{{user.contacts.phone}}</span>
                     </p>
-                    <p fxLayout="row" fxLayoutAlign="start center">
+                    <!--<p fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="muted-text">location_on</mat-icon>
                         <span>{{user.contacts.address}}</span>
                     </p>
                     <p fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="muted-text">date_range</mat-icon>
                         <span>Joined {{user.settings.joinedDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
-                    </p>
+                    </p>-->
                 </div>
             </div>
         </mat-card>
@@ -90,8 +88,8 @@
     <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: page }" fxFlex="100" class="flex-p"> 
         <mat-card class="p-0">  
             <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-                <h3 *ngIf="!user.settings.isDeleted" class="user-name">{{user.profile.name}} {{user.profile.surname}}</h3> 
-                <h3 *ngIf="user.settings.isDeleted" class="user-name">User blocked</h3>
+                <h3 class="user-name">{{user.nom}} {{user.prenom}}</h3> 
+                <!--<h3 *ngIf="user.settings.isDeleted" class="user-name">User blocked</h3>-->
                 <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -110,17 +108,17 @@
             </mat-menu>
             <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
                 <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
-                    <div class="user-img">
+                <!--    <div class="user-img">
                         <img *ngIf="user.profile.image" [src]="user.profile.image" class="transition-2" [class.blocked]="user.settings.isDeleted"> 
                         <img *ngIf="!user.profile.image" src="assets/img/users/default-user.jpg" class="transition-2" [class.blocked]="user.settings.isDeleted">  
                         <mat-icon *ngIf="user.settings.isDeleted" class="warn-color">block</mat-icon>   
                     </div>                                            
                     <div class="user-social">
                         <mat-slide-toggle color="primary" [checked]="user.settings.isDeleted" (change)="user.settings.isDeleted = !user.settings.isDeleted"></mat-slide-toggle>
-                    </div>
+                    </div>-->
                 </div>
-                <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" [class.blocked]="user.settings.isDeleted">
-                    <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2">
+                    <!--<div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">business</mat-icon>
                             <span>{{user.work.company}}</span>
@@ -133,7 +131,7 @@
                             <mat-icon class="muted-text">attach_money</mat-icon>
                             <span>{{user.work.salary}}</span>
                         </p>                                               
-                    </div>
+                    </div>-->
                     <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">mail_outline</mat-icon>
@@ -148,7 +146,7 @@
                             <span>{{user.contacts.address}}</span>
                         </p>                        
                     </div>
-                    <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
+                    <!--<div fxFlex="40" fxFlex.xs="100" fxLayout="column">
                         <p fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="muted-text">event_available</mat-icon>
                             <span>Registration {{user.settings.registrationDate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
@@ -162,7 +160,7 @@
                             <mat-icon *ngIf="!user.settings.isDeleted" class="muted-text">person</mat-icon>
                             <span>{{ (user.settings.isDeleted) ? 'Blocked' : 'Active' }}</span>
                         </p>                       
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </mat-card>

@@ -137,6 +137,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.settings */ "./src/app/app.settings.ts");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _pages_users_users_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/users/users.service */ "./src/app/pages/users/users.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -148,19 +151,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(appSettings) {
+    function AppComponent(appSettings, afAuth, router, uss) {
         this.appSettings = appSettings;
+        this.afAuth = afAuth;
+        this.router = router;
+        this.uss = uss;
         this.settings = this.appSettings.settings;
     }
-    AppComponent.prototype.ngOnInit = function () { };
+    AppComponent.prototype.ngOnInit = function () {
+        var lrouter = this.router;
+        this.afAuth.auth.onAuthStateChanged(function (user) {
+            if (user) {
+                //this.uss.getUser().subscribe(user => this.user = user);  
+                lrouter.navigate(['/dashboard']);
+            }
+        });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
+            styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")],
+            providers: [_pages_users_users_service__WEBPACK_IMPORTED_MODULE_4__["UsersService"]]
         }),
-        __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_1__["AppSettings"]])
+        __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_1__["AppSettings"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _pages_users_users_service__WEBPACK_IMPORTED_MODULE_4__["UsersService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -198,15 +216,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_errors_not_found_not_found_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pages/errors/not-found/not-found.component */ "./src/app/pages/errors/not-found/not-found.component.ts");
 /* harmony import */ var _pages_errors_error_error_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/errors/error/error.component */ "./src/app/pages/errors/error/error.component.ts");
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./app.settings */ "./src/app/app.settings.ts");
-/* harmony import */ var _theme_components_sidenav_sidenav_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./theme/components/sidenav/sidenav.component */ "./src/app/theme/components/sidenav/sidenav.component.ts");
-/* harmony import */ var _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./theme/components/menu/vertical-menu/vertical-menu.component */ "./src/app/theme/components/menu/vertical-menu/vertical-menu.component.ts");
-/* harmony import */ var _theme_components_menu_horizontal_menu_horizontal_menu_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./theme/components/menu/horizontal-menu/horizontal-menu.component */ "./src/app/theme/components/menu/horizontal-menu/horizontal-menu.component.ts");
-/* harmony import */ var _theme_components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./theme/components/breadcrumb/breadcrumb.component */ "./src/app/theme/components/breadcrumb/breadcrumb.component.ts");
-/* harmony import */ var _theme_components_flags_menu_flags_menu_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./theme/components/flags-menu/flags-menu.component */ "./src/app/theme/components/flags-menu/flags-menu.component.ts");
-/* harmony import */ var _theme_components_fullscreen_fullscreen_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./theme/components/fullscreen/fullscreen.component */ "./src/app/theme/components/fullscreen/fullscreen.component.ts");
-/* harmony import */ var _theme_components_applications_applications_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./theme/components/applications/applications.component */ "./src/app/theme/components/applications/applications.component.ts");
-/* harmony import */ var _theme_components_messages_messages_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./theme/components/messages/messages.component */ "./src/app/theme/components/messages/messages.component.ts");
-/* harmony import */ var _theme_components_user_menu_user_menu_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./theme/components/user-menu/user-menu.component */ "./src/app/theme/components/user-menu/user-menu.component.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _theme_components_sidenav_sidenav_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./theme/components/sidenav/sidenav.component */ "./src/app/theme/components/sidenav/sidenav.component.ts");
+/* harmony import */ var _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./theme/components/menu/vertical-menu/vertical-menu.component */ "./src/app/theme/components/menu/vertical-menu/vertical-menu.component.ts");
+/* harmony import */ var _theme_components_menu_horizontal_menu_horizontal_menu_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./theme/components/menu/horizontal-menu/horizontal-menu.component */ "./src/app/theme/components/menu/horizontal-menu/horizontal-menu.component.ts");
+/* harmony import */ var _theme_components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./theme/components/breadcrumb/breadcrumb.component */ "./src/app/theme/components/breadcrumb/breadcrumb.component.ts");
+/* harmony import */ var _theme_components_flags_menu_flags_menu_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./theme/components/flags-menu/flags-menu.component */ "./src/app/theme/components/flags-menu/flags-menu.component.ts");
+/* harmony import */ var _theme_components_fullscreen_fullscreen_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./theme/components/fullscreen/fullscreen.component */ "./src/app/theme/components/fullscreen/fullscreen.component.ts");
+/* harmony import */ var _theme_components_applications_applications_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./theme/components/applications/applications.component */ "./src/app/theme/components/applications/applications.component.ts");
+/* harmony import */ var _theme_components_messages_messages_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./theme/components/messages/messages.component */ "./src/app/theme/components/messages/messages.component.ts");
+/* harmony import */ var _theme_components_user_menu_user_menu_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./theme/components/user-menu/user-menu.component */ "./src/app/theme/components/user-menu/user-menu.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -246,6 +268,10 @@ var DEFAULT_PERFECT_SCROLLBAR_CONFIG = {
 
 
 
+
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -263,7 +289,10 @@ var AppModule = /** @class */ (function () {
                 angular_calendar__WEBPACK_IMPORTED_MODULE_8__["CalendarModule"].forRoot(),
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
                 _theme_pipes_pipes_module__WEBPACK_IMPORTED_MODULE_10__["PipesModule"],
-                _app_routing__WEBPACK_IMPORTED_MODULE_11__["routing"]
+                _app_routing__WEBPACK_IMPORTED_MODULE_11__["routing"],
+                angularfire2_auth__WEBPACK_IMPORTED_MODULE_20__["AngularFireAuthModule"],
+                angularfire2__WEBPACK_IMPORTED_MODULE_19__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_22__["environment"].firebase),
+                angularfire2_firestore__WEBPACK_IMPORTED_MODULE_21__["AngularFirestoreModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"],
@@ -272,18 +301,18 @@ var AppModule = /** @class */ (function () {
                 _pages_search_search_component__WEBPACK_IMPORTED_MODULE_15__["SearchComponent"],
                 _pages_errors_not_found_not_found_component__WEBPACK_IMPORTED_MODULE_16__["NotFoundComponent"],
                 _pages_errors_error_error_component__WEBPACK_IMPORTED_MODULE_17__["ErrorComponent"],
-                _theme_components_sidenav_sidenav_component__WEBPACK_IMPORTED_MODULE_19__["SidenavComponent"],
-                _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_20__["VerticalMenuComponent"],
-                _theme_components_menu_horizontal_menu_horizontal_menu_component__WEBPACK_IMPORTED_MODULE_21__["HorizontalMenuComponent"],
-                _theme_components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_22__["BreadcrumbComponent"],
-                _theme_components_flags_menu_flags_menu_component__WEBPACK_IMPORTED_MODULE_23__["FlagsMenuComponent"],
-                _theme_components_fullscreen_fullscreen_component__WEBPACK_IMPORTED_MODULE_24__["FullScreenComponent"],
-                _theme_components_applications_applications_component__WEBPACK_IMPORTED_MODULE_25__["ApplicationsComponent"],
-                _theme_components_messages_messages_component__WEBPACK_IMPORTED_MODULE_26__["MessagesComponent"],
-                _theme_components_user_menu_user_menu_component__WEBPACK_IMPORTED_MODULE_27__["UserMenuComponent"]
+                _theme_components_sidenav_sidenav_component__WEBPACK_IMPORTED_MODULE_23__["SidenavComponent"],
+                _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_24__["VerticalMenuComponent"],
+                _theme_components_menu_horizontal_menu_horizontal_menu_component__WEBPACK_IMPORTED_MODULE_25__["HorizontalMenuComponent"],
+                _theme_components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_26__["BreadcrumbComponent"],
+                _theme_components_flags_menu_flags_menu_component__WEBPACK_IMPORTED_MODULE_27__["FlagsMenuComponent"],
+                _theme_components_fullscreen_fullscreen_component__WEBPACK_IMPORTED_MODULE_28__["FullScreenComponent"],
+                _theme_components_applications_applications_component__WEBPACK_IMPORTED_MODULE_29__["ApplicationsComponent"],
+                _theme_components_messages_messages_component__WEBPACK_IMPORTED_MODULE_30__["MessagesComponent"],
+                _theme_components_user_menu_user_menu_component__WEBPACK_IMPORTED_MODULE_31__["UserMenuComponent"]
             ],
             entryComponents: [
-                _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_20__["VerticalMenuComponent"]
+                _theme_components_menu_vertical_menu_vertical_menu_component__WEBPACK_IMPORTED_MODULE_24__["VerticalMenuComponent"]
             ],
             providers: [
                 _app_settings__WEBPACK_IMPORTED_MODULE_18__["AppSettings"],
@@ -324,10 +353,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
+    { path: '', loadChildren: 'app/pages/login/login.module#LoginModule' },
     {
         path: '',
         component: _pages_pages_component__WEBPACK_IMPORTED_MODULE_1__["PagesComponent"], children: [
-            { path: '', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
+            { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
             { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },
@@ -409,7 +439,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var AppSettings = /** @class */ (function () {
     function AppSettings() {
-        this.settings = new _app_settings_model__WEBPACK_IMPORTED_MODULE_1__["Settings"]('Gradus', //theme name
+        this.settings = new _app_settings_model__WEBPACK_IMPORTED_MODULE_1__["Settings"]('Athena', //theme name
         true, //loadingSpinner
         true, //fixedHeader
         true, //sidenavIsOpened
@@ -417,7 +447,7 @@ var AppSettings = /** @class */ (function () {
         true, //sidenavUserBlock 
         'vertical', //horizontal , vertical
         'default', //default, compact, mini
-        'indigo-light', //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark
+        'pink-dark', //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark
         false // true = rtl, false = ltr
         );
     }
@@ -636,7 +666,7 @@ module.exports = "<mat-sidenav-container>\r\n    <mat-sidenav *ngIf=\"settings.m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".sidenav {\n  width: 250px;\n  overflow: hidden; }\n\n.horizontal-menu {\n  padding: 0;\n  position: relative;\n  z-index: 9;\n  height: 0; }\n\n.horizontal-menu.sticky {\n    height: 0;\n    min-height: 0;\n    overflow: hidden; }\n\n.horizontal-menu.sticky.fixed-top {\n      position: fixed;\n      top: 0;\n      height: 56px;\n      overflow: visible; }\n\n.inner-sidenav-content {\n  position: absolute;\n  top: 56px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  padding: 8px;\n  min-height: calc(100% - (56px + 8px*2)); }\n\n.options {\n  position: fixed;\n  width: 250px;\n  overflow: hidden; }\n\n.options .control {\n    padding: 6px 14px; }\n\n.options .control div {\n      padding: 6px 0; }\n\n.options .control h4 {\n      border-bottom: 1px solid #ccc;\n      margin: 12px 0 6px 0; }\n\n.options .control .skin-primary {\n      width: 32px;\n      height: 32px;\n      padding: 0;\n      overflow: hidden;\n      cursor: pointer; }\n\n.options .control .skin-primary .skin-secondary {\n        width: 0;\n        height: 0;\n        padding: 0;\n        border-bottom: 32px solid;\n        border-left: 32px solid transparent; }\n\n.options .control .skin-primary.indigo-light {\n        background-color: #3F51B5;\n        border: 1px solid #3F51B5; }\n\n.options .control .skin-primary.indigo-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.teal-light {\n        background-color: #009688;\n        border: 1px solid #009688; }\n\n.options .control .skin-primary.teal-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.red-light {\n        background-color: #F44336;\n        border: 1px solid #F44336; }\n\n.options .control .skin-primary.red-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.blue-dark {\n        background-color: #0277bd;\n        border: 1px solid #0277bd; }\n\n.options .control .skin-primary.blue-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .control .skin-primary.green-dark {\n        background-color: #388E3C;\n        border: 1px solid #388E3C; }\n\n.options .control .skin-primary.green-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .control .skin-primary.pink-dark {\n        background-color: #D81B60;\n        border: 1px solid #D81B60; }\n\n.options .control .skin-primary.pink-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .mat-radio-group {\n    display: inline-flex;\n    flex-direction: column; }\n\n.options .mat-radio-group .mat-radio-button {\n      margin: 2px 0; }\n\n.options .mat-slide-toggle {\n    height: auto; }\n\n.options .ps {\n    height: calc(100% - 48px); }\n\n.op-image {\n  box-shadow: 0 0 2px #ccc;\n  border: 2px solid;\n  border-color: transparent;\n  cursor: pointer;\n  transition: 0.2s; }\n\n.options-icon {\n  position: fixed;\n  top: 110px;\n  right: 0;\n  width: 40px;\n  height: 40px;\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n  cursor: pointer;\n  z-index: 999999; }\n\n.options-icon .mat-icon {\n    -webkit-animation: spin 8s linear infinite;\n    animation: spin 8s linear infinite; }\n\n@-webkit-keyframes spin {\n  100% {\n    -webkit-transform: rotate(360deg); } }\n\n@keyframes spin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.back-to-top {\n  position: fixed;\n  width: 40px;\n  height: 40px;\n  cursor: pointer;\n  z-index: 999999;\n  right: 20px;\n  bottom: 20px;\n  opacity: .5;\n  color: #fff;\n  background-color: rgba(0, 0, 0, 0.75);\n  border-radius: 4px; }\n\n.back-to-top:hover {\n    opacity: 0.9; }\n\n.search-bar form input {\n  height: 28px;\n  border: none;\n  padding: 0;\n  border-radius: 15px;\n  outline: none;\n  color: #444;\n  width: 0;\n  overflow: hidden;\n  transition: 0.3s; }\n\n.search-bar form input.show {\n    padding: 0 8px;\n    width: 250px; }\n"
+module.exports = ".sidenav {\n  width: 250px;\n  overflow: hidden; }\n\n.horizontal-menu {\n  padding: 0;\n  position: relative;\n  z-index: 9;\n  height: 0; }\n\n.horizontal-menu.sticky {\n    height: 0;\n    min-height: 0;\n    overflow: hidden; }\n\n.horizontal-menu.sticky.fixed-top {\n      position: fixed;\n      top: 0;\n      height: 56px;\n      overflow: visible; }\n\n.inner-sidenav-content {\n  position: absolute;\n  top: 56px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  padding: 8px;\n  min-height: calc(100% - (56px + 8px*2)); }\n\n.options {\n  position: fixed;\n  width: 250px;\n  overflow: hidden; }\n\n.options .control {\n    padding: 6px 14px; }\n\n.options .control div {\n      padding: 6px 0; }\n\n.options .control h4 {\n      border-bottom: 1px solid #ccc;\n      margin: 12px 0 6px 0; }\n\n.options .control .skin-primary {\n      width: 32px;\n      height: 32px;\n      padding: 0;\n      overflow: hidden;\n      cursor: pointer; }\n\n.options .control .skin-primary .skin-secondary {\n        width: 0;\n        height: 0;\n        padding: 0;\n        border-bottom: 32px solid;\n        border-left: 32px solid transparent; }\n\n.options .control .skin-primary.indigo-light {\n        background-color: #3F51B5;\n        border: 1px solid #3F51B5; }\n\n.options .control .skin-primary.indigo-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.teal-light {\n        background-color: #009688;\n        border: 1px solid #009688; }\n\n.options .control .skin-primary.teal-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.red-light {\n        background-color: #F44336;\n        border: 1px solid #F44336; }\n\n.options .control .skin-primary.red-light .skin-secondary {\n          border-bottom-color: #ececec; }\n\n.options .control .skin-primary.blue-dark {\n        background-color: #0277bd;\n        border: 1px solid #0277bd; }\n\n.options .control .skin-primary.blue-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .control .skin-primary.green-dark {\n        background-color: #388E3C;\n        border: 1px solid #388E3C; }\n\n.options .control .skin-primary.green-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .control .skin-primary.pink-dark {\n        background-color: #FF0000;\n        border: 1px solid #FF0000; }\n\n.options .control .skin-primary.pink-dark .skin-secondary {\n          border-bottom-color: #262626; }\n\n.options .mat-radio-group {\n    display: inline-flex;\n    flex-direction: column; }\n\n.options .mat-radio-group .mat-radio-button {\n      margin: 2px 0; }\n\n.options .mat-slide-toggle {\n    height: auto; }\n\n.options .ps {\n    height: calc(100% - 48px); }\n\n.op-image {\n  box-shadow: 0 0 2px #ccc;\n  border: 2px solid;\n  border-color: transparent;\n  cursor: pointer;\n  transition: 0.2s; }\n\n.options-icon {\n  position: fixed;\n  top: 110px;\n  right: 0;\n  width: 40px;\n  height: 40px;\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n  cursor: pointer;\n  z-index: 999999; }\n\n.options-icon .mat-icon {\n    -webkit-animation: spin 8s linear infinite;\n    animation: spin 8s linear infinite; }\n\n@-webkit-keyframes spin {\n  100% {\n    -webkit-transform: rotate(360deg); } }\n\n@keyframes spin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.back-to-top {\n  position: fixed;\n  width: 40px;\n  height: 40px;\n  cursor: pointer;\n  z-index: 999999;\n  right: 20px;\n  bottom: 20px;\n  opacity: .5;\n  color: #fff;\n  background-color: rgba(0, 0, 0, 0.75);\n  border-radius: 4px; }\n\n.back-to-top:hover {\n    opacity: 0.9; }\n\n.search-bar form input {\n  height: 28px;\n  border: none;\n  padding: 0;\n  border-radius: 15px;\n  outline: none;\n  color: #444;\n  width: 0;\n  overflow: hidden;\n  transition: 0.3s; }\n\n.search-bar form input.show {\n    padding: 0 8px;\n    width: 250px; }\n"
 
 /***/ }),
 
@@ -847,6 +877,107 @@ var SearchComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], SearchComponent);
     return SearchComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/users/users.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/pages/users/users.service.ts ***!
+  \**********************************************/
+/*! exports provided: UsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return UsersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UsersService = /** @class */ (function () {
+    function UsersService(afs, afAuth) {
+        this.afs = afs;
+        this.afAuth = afAuth;
+        this.url = "api/users";
+    }
+    UsersService.prototype.getUsers = function () {
+        this.itemsCollection = this.afs.collection('users');
+        return this.itemsCollection.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (actions) { return actions.map(function (a) {
+            var data = a.payload.doc.data();
+            data.id = a.payload.doc.id;
+            return data;
+        }); }));
+        //this.items.subscribe(data => this.isLoaded(data) );
+        //return this.itemsCollection.valueChanges();
+        //return this.http.get<User[]>(this.url);
+    };
+    UsersService.prototype.getUser = function () {
+        return this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).valueChanges();
+        /*this.itemsCollection = this.afs.collection<User>('users',ref => ref
+            .where('uid', '==', this.afAuth.auth.currentUser.uid)
+        );
+
+
+
+        this.items = this.itemsCollection.snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as User;
+                data.id = a.payload.doc.id;
+                return data;
+              }))
+            );
+
+        this.items.subscribe(data => function(data)
+        {
+            console.log("user are daras",data);
+        });*/
+        //this.items.subscribe(data => this.isLoaded(data) );
+        //return this.itemsCollection.valueChanges();
+        //return this.http.get<User[]>(this.url);
+    };
+    UsersService.prototype.addUser = function (user) {
+        var _this = this;
+        this.afAuth.auth.createUserWithEmailAndPassword(user.contacts.email, user.password).then(function (value) {
+            user.uid = value.user.uid;
+            _this.itemsCollection = _this.afs.collection('users');
+            return _this.itemsCollection.doc(user.uid).set(user);
+        }).catch(function (error) {
+            _this.itemsCollection = _this.afs.collection('users');
+            return _this.itemsCollection.add(user);
+        });
+        //return this.http.post(this.url, user);
+    };
+    UsersService.prototype.updateUser = function (user) {
+        var uid = user.id;
+        this.itemsCollection = this.afs.collection('users');
+        delete user.id;
+        return this.itemsCollection.doc(uid).update(user);
+    };
+    UsersService.prototype.deleteUser = function (id) {
+        this.itemsCollection = this.afs.collection('users');
+        return this.itemsCollection.doc(id).delete();
+    };
+    UsersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [angularfire2_firestore__WEBPACK_IMPORTED_MODULE_1__["AngularFirestore"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_3__["AngularFireAuth"]])
+    ], UsersService);
+    return UsersService;
 }());
 
 
@@ -1568,63 +1699,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _menu_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./menu.model */ "./src/app/theme/components/menu/menu.model.ts");
 
 var verticalMenuItems = [
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](1, 'Dashboard', '/', null, 'dashboard', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](2, 'Users', '/users', null, 'supervisor_account', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](3, 'UI Features', null, null, 'computer', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](4, 'Buttons', '/ui/buttons', null, 'keyboard', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](5, 'Cards', '/ui/cards', null, 'card_membership', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](6, 'Lists', '/ui/lists', null, 'list', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](7, 'Grids', '/ui/grids', null, 'grid_on', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](8, 'Tabs', '/ui/tabs', null, 'tab', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](9, 'Expansion Panel', '/ui/expansion-panel', null, 'dns', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](10, 'Chips', '/ui/chips', null, 'label', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](11, 'Progress', '/ui/progress', null, 'data_usage', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](12, 'Dialog', '/ui/dialog', null, 'open_in_new', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](13, 'Tooltip', '/ui/tooltip', null, 'chat_bubble', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](14, 'Snackbar', '/ui/snack-bar', null, 'sms', null, false, 3),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](15, 'Dynamic Menu', '/dynamic-menu', null, 'format_list_bulleted', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](16, 'Mailbox', '/mailbox', null, 'email', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](17, 'Chat', '/chat', null, 'chat', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](20, 'Form Controls', null, null, 'dvr', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](21, 'Autocomplete', '/form-controls/autocomplete', null, 'short_text', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](22, 'Checkbox', '/form-controls/checkbox', null, 'check_box', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](23, 'Datepicker', '/form-controls/datepicker', null, 'today', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](24, 'Form field', '/form-controls/form-field', null, 'view_stream', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](25, 'Input', '/form-controls/input', null, 'input', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](26, 'Radio button', '/form-controls/radio-button', null, 'radio_button_checked', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](27, 'Select', '/form-controls/select', null, 'playlist_add_check', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](28, 'Slider', '/form-controls/slider', null, 'tune', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](29, 'Slide toggle', '/form-controls/slide-toggle', null, 'star_half', null, false, 20),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](30, 'Tables', null, null, 'view_module', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](31, 'Basic', '/tables/basic', null, 'view_column', null, false, 30),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](32, 'Paging', '/tables/paging', null, 'last_page', null, false, 30),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](33, 'Sorting', '/tables/sorting', null, 'sort', null, false, 30),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](34, 'Filtering', '/tables/filtering', null, 'format_line_spacing', null, false, 30),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](35, 'NGX DataTable', '/tables/ngx-table', null, 'view_array', null, false, 30),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](40, 'Pages', null, null, 'library_books', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](43, 'Login', '/login', null, 'exit_to_app', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](44, 'Register', '/register', null, 'person_add', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](45, 'Blank', '/blank', null, 'check_box_outline_blank', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](46, 'Page Not Found', '/pagenotfound', null, 'error_outline', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](47, 'Error', '/error', null, 'warning', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](48, 'Landing', '/landing', null, 'filter', null, false, 40),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](50, 'Schedule', '/schedule', null, 'event', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](66, 'Maps', null, null, 'map', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](67, 'Google Maps', '/maps/googlemaps', null, 'location_on', null, false, 66),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](68, 'Leaflet Maps', '/maps/leafletmaps', null, 'my_location', null, false, 66),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](70, 'Charts', null, null, 'multiline_chart', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](71, 'Bar Charts', '/charts/bar', null, 'insert_chart', null, false, 70),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](72, 'Pie Charts', '/charts/pie', null, 'pie_chart', null, false, 70),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](73, 'Line Charts', '/charts/line', null, 'show_chart', null, false, 70),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](74, 'Bubble Charts', '/charts/bubble', null, 'bubble_chart', null, false, 70),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](81, 'Drag & Drop', '/drag-drop', null, 'mouse', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](85, 'Material Icons', '/icons', null, 'insert_emoticon', null, false, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](140, 'Level 1', null, null, 'more_horiz', null, true, 0),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](141, 'Level 2', null, null, 'folder_open', null, true, 140),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](142, 'Level 3', null, null, 'folder_open', null, true, 141),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](143, 'Level 4', null, null, 'folder_open', null, true, 142),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](144, 'Level 5', null, 'http://themeseason.com', 'link', null, false, 143),
-    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](200, 'External Link', null, 'http://themeseason.com', 'open_in_new', '_blank', false, 0)
+    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](1, 'Tableau de board', '/dashboard', null, 'dashboard', null, false, 0),
+    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](2, 'Collaborateurs', '/users', null, 'supervisor_account', null, false, 0),
+    new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](16, 'Consignes', '/mailbox', null, 'email', null, false, 0),
 ];
 var horizontalMenuItems = [
     new _menu_model__WEBPACK_IMPORTED_MODULE_0__["Menu"](1, 'Dashboard', '/', null, 'dashboard', null, false, 0),
@@ -2036,7 +2113,7 @@ var MessagesService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\" [fxLayoutAlign]=\"(settings.menuType != 'mini') ? 'space-between center' : 'center center'\" class=\"sidenav-header\">\r\n    <a mat-raised-button color=\"accent\" routerLink=\"/\" (click)=\"closeSubMenus()\" class=\"small-logo\">G</a>\r\n    <a *ngIf=\"settings.menuType == 'default'\" class=\"logo\" routerLink=\"/\" (click)=\"closeSubMenus()\">GRADUS</a> \r\n    <svg *ngIf=\"settings.menuType != 'mini'\" class=\"pin\" (click)=\"settings.sidenavIsPinned = !settings.sidenavIsPinned\">\r\n        <path *ngIf=\"!settings.sidenavIsPinned\" d=\"M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z\" />\r\n        <path *ngIf=\"settings.sidenavIsPinned\" d=\"M2,5.27L3.28,4L20,20.72L18.73,22L12.8,16.07V22H11.2V16H6V14L8,12V11.27L2,5.27M16,12L18,14V16H17.82L8,6.18V4H7V2H17V4H16V12Z\" />\r\n    </svg>  \r\n</mat-toolbar>\r\n\r\n<div fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"user-block transition-2\" [class.show]=\"settings.sidenavUserBlock\"> \r\n    <div [fxLayout]=\"(settings.menuType != 'default') ? 'column' : 'row'\" \r\n         [fxLayoutAlign]=\"(settings.menuType != 'default') ? 'center center' : 'space-around center'\" class=\"user-info-wrapper\">\r\n        <img [src]=\"userImage\" alt=\"user-image\">\r\n        <div class=\"user-info\">\r\n            <p class=\"name\">Emilio Verdines</p>\r\n            <p *ngIf=\"settings.menuType == 'default'\" class=\"position\">Web developer <br> <small class=\"muted-text\">Member since May. 2016</small></p>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"settings.menuType != 'mini'\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100 muted-text\">\r\n        <button mat-icon-button><mat-icon>person_outline</mat-icon></button>\r\n        <a mat-icon-button routerLink=\"/mailbox\">\r\n            <mat-icon>mail_outline</mat-icon>\r\n        </a>\r\n        <a mat-icon-button routerLink=\"/login\">\r\n            <mat-icon>power_settings_new</mat-icon>\r\n        </a>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"sidenav-menu-outer\" class=\"sidenav-menu-outer\" perfectScrollbar [class.user-block-show]=\"settings.sidenavUserBlock\">    \r\n    <span *ngIf=\"!menuItems\">loading....</span>\r\n    <app-vertical-menu [menuItems]=\"menuItems\" [menuParentId]=\"0\"></app-vertical-menu> \r\n</div>"
+module.exports = "<mat-toolbar color=\"primary\" [fxLayoutAlign]=\"(settings.menuType != 'mini') ? 'space-between center' : 'center center'\" class=\"sidenav-header\" style=\"background-color: #fff;\">\r\n    <img src=\"assets/img/athena_logo.png\" style=\"height:100%\"/>\r\n    \r\n    <!--<a mat-raised-button color=\"accent\" routerLink=\"/\" (click)=\"closeSubMenus()\" class=\"small-logo\">G</a>\r\n    <a *ngIf=\"settings.menuType == 'default'\" class=\"logo\" routerLink=\"/\" (click)=\"closeSubMenus()\">GRADUS</a> -->\r\n    <svg *ngIf=\"settings.menuType != 'mini'\" class=\"pin\" (click)=\"settings.sidenavIsPinned = !settings.sidenavIsPinned\">\r\n        <path *ngIf=\"!settings.sidenavIsPinned\" d=\"M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z\" />\r\n        <path *ngIf=\"settings.sidenavIsPinned\" d=\"M2,5.27L3.28,4L20,20.72L18.73,22L12.8,16.07V22H11.2V16H6V14L8,12V11.27L2,5.27M16,12L18,14V16H17.82L8,6.18V4H7V2H17V4H16V12Z\" />\r\n    </svg>  \r\n</mat-toolbar>\r\n\r\n<div fxLayout=\"column\" fxLayoutAlign=\"center center\" class=\"user-block transition-2\" [class.show]=\"settings.sidenavUserBlock\"> \r\n    <div [fxLayout]=\"(settings.menuType != 'default') ? 'column' : 'row'\" \r\n         [fxLayoutAlign]=\"(settings.menuType != 'default') ? 'center center' : 'space-around center'\" class=\"user-info-wrapper\">\r\n        <img [src]=\"userImage\" alt=\"user-image\">\r\n        <div class=\"user-info\">\r\n            <p class=\"name\">{{userBind.nom}} {{userBind.prenom}}</p>\r\n            <!--<p *ngIf=\"settings.menuType == 'default'\" class=\"position\">Web developer <br> <small class=\"muted-text\">Member since May. 2016</small></p>-->\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"settings.menuType != 'mini'\" fxLayout=\"row\" fxLayoutAlign=\"space-around center\" class=\"w-100 muted-text\">\r\n        <button mat-icon-button><mat-icon>person_outline</mat-icon></button>\r\n        <a mat-icon-button routerLink=\"/mailbox\">\r\n            <mat-icon>mail_outline</mat-icon>\r\n        </a>\r\n        <a mat-icon-button routerLink=\"/login\">\r\n            <mat-icon>power_settings_new</mat-icon>\r\n        </a>\r\n    </div>\r\n</div>\r\n\r\n<div id=\"sidenav-menu-outer\" class=\"sidenav-menu-outer\" perfectScrollbar [class.user-block-show]=\"settings.sidenavUserBlock\">    \r\n    <span *ngIf=\"!menuItems\">loading....</span>\r\n    <app-vertical-menu [menuItems]=\"menuItems\" [menuParentId]=\"0\"></app-vertical-menu> \r\n</div>"
 
 /***/ }),
 
@@ -2064,6 +2141,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../app.settings */ "./src/app/app.settings.ts");
 /* harmony import */ var _menu_menu_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../menu/menu.service */ "./src/app/theme/components/menu/menu.service.ts");
+/* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var _pages_users_users_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../pages/users/users.service */ "./src/app/pages/users/users.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2076,15 +2156,39 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var SidenavComponent = /** @class */ (function () {
-    function SidenavComponent(appSettings, menuService) {
+    function SidenavComponent(appSettings, menuService, afs, afAuth, uss) {
         this.appSettings = appSettings;
         this.menuService = menuService;
+        this.afs = afs;
+        this.afAuth = afAuth;
+        this.uss = uss;
         this.userImage = '../assets/img/users/user.jpg';
+        this.userBind = {};
         this.settings = this.appSettings.settings;
     }
     SidenavComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.menuItems = this.menuService.getVerticalMenuItems();
+        this.userDoc = this.afs.doc('/users/' + this.afAuth.auth.currentUser.uid);
+        this.user = this.userDoc.valueChanges();
+        this.user.subscribe(function (data) { return _this.isLoaded(data); });
+        //this.user = this.afs.collection<any>('users').doc(this.afAuth.auth.currentUser.uid).valueChanges();
+        //console.log("this.user",this.user);
+        /*this.afAuth.auth.onAuthStateChanged(function(user) {
+          if (user) {
+            //console.log("this.userService.getUser()",this.userService.getUser());
+            //this.uss.getUser().subscribe(user => this.user = user);
+            //this.user = this.afs.collection('users').doc(this.afAuth.auth.currentUser.uid).valueChanges();
+          }
+        });*/
+        //console.log("userservice says",this.usersService.getUser());
+    };
+    SidenavComponent.prototype.isLoaded = function (data) {
+        this.userBind = data;
     };
     SidenavComponent.prototype.closeSubMenus = function () {
         var menu = document.querySelector(".sidenav-menu-outer");
@@ -2106,9 +2210,9 @@ var SidenavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sidenav.component.html */ "./src/app/theme/components/sidenav/sidenav.component.html"),
             styles: [__webpack_require__(/*! ./sidenav.component.scss */ "./src/app/theme/components/sidenav/sidenav.component.scss")],
             encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
-            providers: [_menu_menu_service__WEBPACK_IMPORTED_MODULE_2__["MenuService"]]
+            providers: [_menu_menu_service__WEBPACK_IMPORTED_MODULE_2__["MenuService"], _pages_users_users_service__WEBPACK_IMPORTED_MODULE_5__["UsersService"]]
         }),
-        __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_1__["AppSettings"], _menu_menu_service__WEBPACK_IMPORTED_MODULE_2__["MenuService"]])
+        __metadata("design:paramtypes", [_app_settings__WEBPACK_IMPORTED_MODULE_1__["AppSettings"], _menu_menu_service__WEBPACK_IMPORTED_MODULE_2__["MenuService"], angularfire2_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_4__["AngularFireAuth"], _pages_users_users_service__WEBPACK_IMPORTED_MODULE_5__["UsersService"]])
     ], SidenavComponent);
     return SidenavComponent;
 }());
@@ -2394,8 +2498,8 @@ var MailSearchPipe = /** @class */ (function () {
         var searchText = new RegExp(args, 'ig');
         if (value) {
             return value.filter(function (mail) {
-                if (mail.sender || mail.subject) {
-                    if (mail.sender.search(searchText) !== -1 || mail.subject.search(searchText) !== -1) {
+                if (mail && (mail.sender || mail.subject)) {
+                    if ((mail.sender && (mail.sender.search(searchText) !== -1)) || (mail.subject && mail.subject.search(searchText) !== -1)) {
                         return true;
                     }
                 }
@@ -2439,11 +2543,11 @@ var UserSearchPipe = /** @class */ (function () {
         var searchText = new RegExp(args, 'ig');
         if (value) {
             return value.filter(function (user) {
-                if (user.profile.name) {
-                    return user.profile.name.search(searchText) !== -1;
+                if (user.nom) {
+                    return user.nom.search(searchText) !== -1;
                 }
                 else {
-                    return user.username.search(searchText) !== -1;
+                    return false;
                 }
             });
         }
@@ -2561,7 +2665,15 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    production: false
+    production: false,
+    firebase: {
+        apiKey: "AIzaSyAZU6Dti-c9qjq_S4mEO_r1DszpMiDAiUY",
+        authDomain: "athena-a3909.firebaseapp.com",
+        databaseURL: "https://athena-a3909.firebaseio.com",
+        projectId: "athena-a3909",
+        storageBucket: "athena-a3909.appspot.com",
+        messagingSenderId: "357057169874"
+    }
 };
 
 

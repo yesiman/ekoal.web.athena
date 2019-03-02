@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gradus": {
+    "angular": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -16,18 +16,33 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/@pages/styles",
+                "src/pages_ui/scss"
+              ]
+            },
             "assets": [
               "src/assets",
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "node_modules/dragula/dist/dragula.min.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
-              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
-              "src/styles.scss"
+              "src/assets/plugins/bootstrap/css/bootstrap.min.css",
+              "src/assets/plugins/font-awesome/css/font-awesome.min.css",
+              "src/assets/plugins/codrops-stepsform/css/component.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/scrollreveal/dist/scrollreveal.js",
+              "node_modules/echarts/dist/echarts.min.js",
+              "src/app/@pages/assets/javascript/pages.js",
+              "node_modules/masonry-layout/dist/masonry.pkgd.min.js",
+              "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
+              "node_modules/imagesloaded/imagesloaded.pkgd.js",
+              "src/assets/plugins/modernizr.custom.js",
+              "src/assets/plugins/codrops-stepsform/js/classie.js",
+              "src/assets/plugins/codrops-stepsform/js/stepsForm.js",
+              "src/assets/plugins/skycons/skycons.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -52,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gradus:build"
+            "browserTarget": "angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gradus:build:production"
+              "browserTarget": "angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gradus:build"
+            "browserTarget": "angular:build"
           }
         },
         "test": {
@@ -73,13 +88,22 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
+            "scripts": [
+              "node_modules/scrollreveal/dist/scrollreveal.js",
+              "node_modules/echarts/dist/echarts.min.js",
+              "src/app/@pages/assets/javascript/pages.js",
+              "node_modules/masonry-layout/dist/masonry.pkgd.min.js",
+              "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
+              "node_modules/imagesloaded/imagesloaded.pkgd.js",
+              "src/assets/plugins/modernizr.custom.js",
+              "src/assets/plugins/codrops-stepsform/js/classie.js",
+              "src/assets/plugins/codrops-stepsform/js/stepsForm.js",
+              "src/assets/plugins/skycons/skycons.js"
+            ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "node_modules/dragula/dist/dragula.min.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
-              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
-              "src/styles.scss"
+              "src/assets/plugins/bootstrap/css/bootstrap.min.css",
+              "src/assets/plugins/font-awesome/css/font-awesome.min.css",
+              "src/assets/plugins/codrops-stepsform/css/component.css"
             ],
             "assets": [
               "src/assets",
@@ -101,16 +125,16 @@
         }
       }
     },
-    "gradus-e2e": {
+    "angular-e2e": {
       "root": "",
-      "sourceRoot": "",
+      "sourceRoot": "e2e",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "gradus:serve"
+            "devServerTarget": "angular:serve"
           }
         },
         "lint": {
@@ -127,22 +151,14 @@
       }
     }
   },
-  "defaultProject": "gradus",
+  "defaultProject": "angular",
   "schematics": {
     "@schematics/angular:component": {
-      "spec": false,
       "prefix": "app",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "spec": false,
       "prefix": "app"
-    },
-    "@schematics/angular:pipe": {
-      "spec": false
-    },
-    "@schematics/angular:service": {
-      "spec": false
     }
   }
 }

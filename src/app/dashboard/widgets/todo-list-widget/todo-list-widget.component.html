@@ -1,0 +1,76 @@
+<pgcard TimeOut="3000" AdditionalClasses="card no-border  card-condensed  no-margin widget-loader-circle todolist-widget align-self-stretch"
+ Maximize="false" Toggle="false" Close="false" Controls="false"  BodyClass="no-padding" HeaderClass="top-right">
+ <div class="padding-25">
+		<div class="pull-left">
+			<h2 class="text-success no-margin" style="color:#f8d053 !important;">Post-its</h2>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="task-list p-t-0 p-r-20 p-b-20 p-l-20 clearfix flex-1">
+		<!-- START TAKS !-->
+		<div class="task clearfix row completed"  *ngFor="let value of postits">
+			<div class="task-list-title col-10 justify-content-between">
+				<a href="javascript:void(0)" class="text-master" [ngClass]="{'strikethrough': value.checked}" data-task="name">{{value.txt}}
+				</a>
+				<i (click)="remove(value.id)" class="fs-14 pg pg-close hidden"></i>
+			</div>
+			<div class="checkbox checkbox-circle no-margin text-center col-2 d-flex justify-content-center">
+				<input  (click)="check(value.id,value.checked)" type="checkbox" [checked]="value.checked" id="{{value.id}}" data-toggler="task" class="hidden">
+				<label for="{{value.id}}" class=" no-margin no-padding absolute"></label>
+			</div>
+		</div>
+		<!-- END TAKS !-->
+		<!--
+		<div class="task clearfix row">
+			<div class="task-list-title col-10 justify-content-between">
+				<a href="javascript:void(0)" class="text-master" data-task="name">Meeting with CFO
+				</a>
+				<i class="fs-14 pg pg-close hidden"></i>
+			</div>
+			<div class="checkbox checkbox-circle no-margin text-center col-2 d-flex justify-content-center">
+				<input type="checkbox" value="1" id="todocheck2" data-toggler="task" class="hidden">
+				<label for="todocheck2" class=" no-margin no-padding absolute"></label>
+			</div>
+		</div>
+		<div class="task clearfix row">
+			<div class="task-list-title col-10 justify-content-between">
+				<a href="javascript:void(0)" class="text-master" data-task="name">AGM Conference at 1pm
+				</a>
+				<i class="fs-14 pg pg-close hidden"></i>
+			</div>
+			<div class="checkbox checkbox-circle no-margin text-center col-2 d-flex justify-content-center">
+				<input type="checkbox" value="1" id="todocheck3" data-toggler="task" class="hidden">
+				<label for="todocheck3" class=" no-margin no-padding absolute"></label>
+			</div>
+		</div>
+		
+		<div class="task clearfix row">
+			<div class="task-list-title col-10 justify-content-between">
+				<a href="javascript:void(0)" class="text-master" data-task="name">Revise Annual Reports
+				</a>
+				<i class="fs-14 pg pg-close hidden"></i>
+			</div>
+			<div class="checkbox checkbox-circle no-margin text-center col-2 d-flex justify-content-center">
+				<input type="checkbox" value="1" id="todocheck4" data-toggler="task" class="hidden">
+				<label for="todocheck4" class=" no-margin no-padding absolute"></label>
+			</div>
+		</div>
+		 !-->
+	</div>
+	<div class="clearfix"></div>
+	<div class="bg-master-light padding-20 full-width ">
+		<div class="row">
+			<div class="col-10">
+				<p class="no-margin normal text-black">Nouveau Post-IT</p>
+				<div class="input-group transparent no-border full-width">
+					<input class="form-control transparent p-l-0" type="text" [(ngModel)]="inputPostit" placeholder="Saisissez le contenu...">
+				</div>
+			</div>
+			<div class="col-2 text-center">
+				<a href="javascript:void(0)" (click)="addNote()" class="block m-t-15">
+					<img src="assets/img/plus.svg">
+				</a>
+			</div>
+		</div>
+	</div>
+</pgcard>

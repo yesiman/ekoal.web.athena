@@ -1,0 +1,132 @@
+<div bsModal #smSlideUp="bs-modal" class="modal fade slide-up disable-scroll" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content-wrapper">
+      <div class="modal-content">
+        <div class="modal-body text-center m-t-20">
+          <h4 class="no-margin p-b-10">Êtes vous sur de vouloir supprimer cet enregistrement ?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-cons" (click)="removeRowValid()">Valider</button>
+          <button type="button" class="btn btn-cons" (click)="smSlideUp.hide()">Annuler</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+</div>
+
+<div bsModal #addNewAppModal="bs-modal" class="modal fade stick-up" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix ">
+        <button type="button" class="close" (click)="addNewAppModal.hide()" aria-hidden="true"><i class="pg pg-close fs-14"></i>
+        </button>
+        <h4 class="p-b-5"><span class="semi-bold">Nouvel</span> Utilisateur</h4>
+      </div>
+      <div class="modal-body">
+        <p class="small-text">Create a new app using this form, make sure you fill them all</p>
+        <form role="form" autocomplete="off" #basicForm="ngForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group form-group-default required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+                  <label>Nom</label>
+                  <input type="text" class="form-control" id="tacheNom" name="tacheNom" [(ngModel)]="tache.nom"  #modalAppName="ngModel" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+              <div class="col-md-12">
+                <div  class="form-group form-group-default input-group">
+                  <div class="form-input-group">
+                    <label>Tarif horaire</label>
+                    <input type="text" class="form-control eur"  name="tacheBudget" [(ngModel)]="tache.budget" >
+                  </div>
+                  <div class="input-group-append ">
+                      <span class="input-group-text">EUR
+                      </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="add-app" type="button" class="btn btn-primary  btn-cons" (click)="!basicForm.invalid && addRow()" [class.disabled]="basicForm.invalid" >Valider</button>
+        <button type="button" class="btn btn-cons" (click)="addNewAppModal.hide()">Annuler</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+       <!-- START JUMBOTRON -->
+       <div class="jumbotron">
+       <pg-container extraHorizontalClass="p-l-0 p-r-0" extraClass="sm-p-l-0 sm-p-r-0">
+          <div class="inner" pg-parallax>
+            <!-- START BREADCRUMB -->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="javascript:void(0);" [routerLink]="'/dashboard'">Accueil</a></li>
+              <li class="breadcrumb-item active">Taches</li>
+            </ol>
+            <!-- END BREADCRUMB --> 
+            
+          </div>
+
+        </pg-container>
+      </div>
+      <!-- END JUMBOTRON -->
+      <!-- START CONTAINER FLUID -->
+      <pg-container extraHorizontalClass="bg-white" extraClass="bg-white">
+        <!-- START card -->
+        <div class="card card-transparent">
+          <div class="card-header ">
+            <div class="card-title">Liste des taches
+            </div>
+            <div class="pull-right">
+              <div class="col-xs-12">
+                <button (click)="showModal()"  class="btn btn-primary btn-cons"><i class="fa fa-plus"></i> Nouveau
+                </button>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="card-body">
+              <div class="table-responsive">
+                <ngx-datatable
+                class='table table-hover'
+                [rows]="basic_table_data"
+                [columnMode]="columnModeSetting"
+                [headerHeight]="43"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [selected]="selected"
+                [selectionType]="'checkbox'"
+                [scrollbarH]="scrollBarHorizontal"
+                (activate)="onActivate($event)"
+                (select)='onSelect($event)'>
+                <ngx-datatable-column name="Nom" value="value" cellClass="d-flex align-items-center"></ngx-datatable-column>
+                <ngx-datatable-column name="Tarif horaire" prop="budget" value="value" cellClass="d-flex align-items-center"></ngx-datatable-column>
+                
+                <ngx-datatable-column name="id" >
+                  <ng-template let-column="column" ngx-datatable-header-template>
+                      actions
+                  </ng-template>
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <button class="btn btn-primary" (click)="detail(row)" type="button"><i class="fa fa-edit" ></i>
+                      </button>
+                      <button class="btn btn-danger" (click)="removeRow(row.id)" type="button"><i class="fa fa-trash"></i>
+                      </button>
+                      
+                  </ng-template>
+              </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+        <!-- END card -->
+      </pg-container>
+      <!-- END CONTAINER FLUID -->
+      

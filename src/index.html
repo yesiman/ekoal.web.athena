@@ -1,15 +1,26 @@
 <!doctype html>
 <html lang="en">
-<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Athena</title>
+  <title>[ATHENA OI] - Outil d'administration</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    window.paceOptions = {
+      document: true,
+      eventLag: true,
+      restartOnPushState: true,
+      restartOnRequestAfter: true,
+      ajax: {
+        trackMethods: [ 'POST','GET']
+      }
+    };
+  </script>
+  <script src="assets/plugins/pace/pace.min.js"></script>
 </head>
-<body>
+<body class="fixed-header">
   <app-root></app-root>
 </body>
 </html>

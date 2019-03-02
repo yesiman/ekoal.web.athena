@@ -1,0 +1,46 @@
+<div class="login-wrapper ">
+	<!-- START Login Background Pic Wrapper-->
+	<div class="bg-pic">
+		<!-- START Background Pic-->
+		<div class="img-holder"  [ngStyle]="{'background-color':'#333','opacity':'1'}"></div> 
+		<!-- START Background Caption-->
+		
+		<!-- END Background Caption-->
+	</div>
+	<!-- END Login Background Pic Wrapper-->
+	<!-- START Login Right Container-->
+	<div class="login-container bg-white">
+		<div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+			<img src="assets/img/athena_logo.png" alt="logo" style="width:80%;" pgRetina src1x="assets/img/logo.png" src2x="assets/img/athena_logo.png"
+			     >
+				 <p class="p-t-35">Veuillez saisir vos identifiants</p>
+			<!-- START Login Form -->
+			<form class="p-t-15" role="form" #loginForm="ngForm">
+				<!-- START Form Control-->
+				<div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="loginUserName.invalid && (loginUserName.dirty || loginUserName.touched)">
+					<label>Identifiant</label>
+					<input type="text" id="userName" name="userName" [(ngModel)]="userName"  #loginUserName="ngModel" required  placeholder="User Name" class="form-control">
+				</div>
+				<div *ngIf="loginUserName.invalid && (loginUserName.dirty || loginUserName.touched)" >
+					<label  *ngIf="loginUserName.errors.required" class="error" >Ce champ est obligatoire.</label>
+				</div>
+				<!-- END Form Control-->
+				<!-- START Form Control-->
+				<div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)">
+					<label>Mot de passe</label>
+					<input type="password" class="form-control" placeholder="Credentials" id="password" name="password" [(ngModel)]="password"  #loginPassword="ngModel" required>
+				</div>
+				<div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)" >
+					<label  *ngIf="loginPassword.errors.required" class="error" >Ce champ est obligatoire.</label>
+				</div>
+				<!-- START Form Control-->
+				
+				<!-- END Form Control-->
+				<button (click)="logMe()" class="btn btn-primary btn-cons m-t-10" type="submit" [class.disabled]="loginForm.invalid">Se connecter</button>
+			</form>
+			<!--END Login Form-->
+			
+		</div>
+	</div>
+	<!-- END Login Right Container-->
+</div>

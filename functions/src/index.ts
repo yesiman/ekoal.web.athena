@@ -1,8 +1,16 @@
-import * as functions from 'firebase-functions';
-
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 // // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
+// // https://firebase.google.com/functions/write-firebase-functions
 //
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+
+var serviceAccount = require("./athena-a3909-firebase-adminsdk-i0qyy-17d4bd4797.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://athena-a3909.firebaseio.com"
+});
+
+exports.onConsigneCreated = functions.firestore.document('consignes/{uid}').onCreate(event => {
+    
+    console.log(event);
+  });

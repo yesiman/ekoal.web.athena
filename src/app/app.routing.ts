@@ -1,42 +1,662 @@
-import { Routes, RouterModule, PreloadAllModules  } from '@angular/router';
-import { ModuleWithProviders } from '@angular/core';
+import { Routes } from '@angular/router';
+//Layouts
+import { 
+  CondensedComponent,
+  BlankComponent,
+  CorporateLayout,
+  SimplyWhiteLayout,
+  ExecutiveLayout,
+  CasualLayout ,
+  BlankCasualComponent,
+  BlankCorporateComponent,
+  BlankSimplywhiteComponent
+} from './@pages/layouts';
 
-import { PagesComponent } from './pages/pages.component';
-import { BlankComponent } from './pages/blank/blank.component';
-import { SearchComponent } from './pages/search/search.component';
-import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-import { ErrorComponent } from './pages/errors/error/error.component';
+//Sample Pages
+import { CondensedDashboardComponent} from './dashboard/condensed/dashboard.component';
+import { SimplyWhiteDashboardComponent} from './dashboard/simplywhite/dashboard.component';
+import { CasualDashboardComponent } from './dashboard/casual/dashboard.component';
+import { CorporateDashboardComponent } from './dashboard/corporate/dashboard.component';
+import { ExecutiveDashboardComponent } from './dashboard/executive/dashboard.component';
+import { CardsComponentPage} from './cards/cards.component';
+import { ViewsPageComponent} from './views/views.component';
+import { ChartsComponent } from './charts/charts.component';
+import { SocialComponent } from './social/social.component';
 
-export const routes: Routes = [
-    { path: '', loadChildren: 'app/pages/login/login.module#LoginModule' },
-    { 
-        path: '', 
-        component: PagesComponent, children: [
-            { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
-            { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
-            { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },
-            { path: 'form-controls', loadChildren: 'app/pages/form-controls/form-controls.module#FormControlsModule', data: { breadcrumb: 'Form Controls' } },
-            { path: 'tables', loadChildren: 'app/pages/tables/tables.module#TablesModule', data: { breadcrumb: 'Tables' } },
-            { path: 'icons', loadChildren: 'app/pages/icons/icons.module#IconsModule', data: { breadcrumb: 'Material Icons' } },
-            { path: 'drag-drop', loadChildren: 'app/pages/drag-drop/drag-drop.module#DragDropModule', data: { breadcrumb: 'Drag & Drop' } },
-            { path: 'schedule', loadChildren: 'app/pages/schedule/schedule.module#ScheduleModule', data: { breadcrumb: 'Schedule' } },
-            { path: 'mailbox', loadChildren: 'app/pages/mailbox/mailbox.module#MailboxModule', data: { breadcrumb: 'Mailbox' } },
-            { path: 'chat', loadChildren: 'app/pages/chat/chat.module#ChatModule', data: { breadcrumb: 'Chat' } },
-            { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
-            { path: 'charts', loadChildren: 'app/pages/charts/charts.module#ChartsModule', data: { breadcrumb: 'Charts' } },
-            { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
-            { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
-            { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } }
-        ]
+export const AppRoutes: Routes = [
+
+  {
+    path: '',
+    data: {
+        breadcrumb: 'Home'
     },
-    { path: 'landing', loadChildren: 'app/pages/landing/landing.module#LandingModule' },
-    { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
-    { path: 'register', loadChildren: 'app/pages/register/register.module#RegisterModule' },
-    { path: 'error', component: ErrorComponent, data: { breadcrumb: 'Error' } },
-    { path: '**', component: NotFoundComponent }
-];
+    component: ExecutiveDashboardComponent
+  },
+  {
+    path: '',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'dashboard',
+      component: ExecutiveDashboardComponent,
+      data: {
+        title: 'Tableau de board'
+      }
+    }],
+  },
+  {
+    path: '',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'users',
+      loadChildren: './@athena/users/users.module#UsersModule'
+    }]
+  },
+  {
+    path: '',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'taches',
+      loadChildren: './@athena/taches/taches.module#TachesModule'
+    }]
+  },
+  {
+    path: '',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'plannings',
+      loadChildren: './@athena/planning/planning.module#PlanningModule'
+    }]
+  },
+  {
+    path: '',
+    component: BlankComponent,
+    children: [{
+      path: 'session',
+      loadChildren: './session/session.module#SessionModule'
+    }]
+  },
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {
-   preloadingStrategy: PreloadAllModules,  // <- comment this line for activate lazy load
-   // useHash: true
-});
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'dashboard',
+      component: CondensedDashboardComponent
+    }],
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'extra',
+      loadChildren: './extra/extra.module#ExtraModule'
+    }]
+  },{
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'layouts',
+      loadChildren: './layouts/layouts.module#LayoutPageModule'
+    }]
+  },{
+    path: 'condensed',
+    component: BlankComponent,
+    children: [{
+      path: 'session',
+      loadChildren: './session/session.module#SessionModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'forms',
+      loadChildren: './forms/forms.module#FormsPageModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'builder',
+      loadChildren: './builder/builder.module#BuilderModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'ui',
+      loadChildren: './ui/ui.module#UiModule'
+    }]
+  },{
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'email',
+      loadChildren: './email/email.module#EmailModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'social',
+      component: SocialComponent
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'cards',
+      component: CardsComponentPage
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'views',
+      component: ViewsPageComponent
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'maps',
+      loadChildren: './maps/maps.module#MapsModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'tables',
+      loadChildren: './tables/tables.module#TablesModule'
+    }]
+  },
+  {
+    path: 'condensed',
+    component: CondensedComponent,
+    children: [{
+      path: 'charts',
+      component: ChartsComponent
+    }]
+  },
+  //Corporate Layout Styles and Routing
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'dashboard',
+      component: CorporateDashboardComponent
+    }],
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'extra',
+      loadChildren: './extra/extra.module#ExtraModule'
+    }]
+  },{
+    path: 'corporate',
+    component: BlankCorporateComponent,
+    children: [{
+      path: 'session',
+      loadChildren: './session/session.module#SessionModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'social',
+      component: SocialComponent
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'forms',
+      loadChildren: './forms/forms.module#FormsPageModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'layouts',
+      loadChildren: './layouts/layouts.module#LayoutPageModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'builder',
+      loadChildren: './builder/builder.module#BuilderModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'ui',
+      loadChildren: './ui/ui.module#UiModule'
+    }]
+  },{
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'email',
+      loadChildren: './email/email.module#EmailModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'cards',
+      component: CardsComponentPage
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'views',
+      component: ViewsPageComponent
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'tables',
+      loadChildren: './tables/tables.module#TablesModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'maps',
+      loadChildren: './maps/maps.module#MapsModule'
+    }]
+  },
+  {
+    path: 'corporate',
+    component: CorporateLayout,
+    children: [{
+      path: 'charts',
+      component: ChartsComponent
+    }]
+  },
+  //Simply White Routes
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'dashboard',
+      component: SimplyWhiteDashboardComponent
+    }],
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'extra',
+      loadChildren: './extra/extra.module#ExtraModule'
+    }]
+  },{
+    path: 'simplywhite',
+    component: BlankSimplywhiteComponent,
+    children: [{
+      path: 'session',
+      loadChildren: './session/session.module#SessionModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'social',
+      component: SocialComponent
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'forms',
+      loadChildren: './forms/forms.module#FormsPageModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'layouts',
+      loadChildren: './layouts/layouts.module#LayoutPageModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'builder',
+      loadChildren: './builder/builder.module#BuilderModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'ui',
+      loadChildren: './ui/ui.module#UiModule'
+    }]
+  },{
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'email',
+      loadChildren: './email-light/email.module#EmailLightModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'cards',
+      component: CardsComponentPage
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'views',
+      component: ViewsPageComponent
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'tables',
+      loadChildren: './tables/tables.module#TablesModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'maps',
+      loadChildren: './maps/maps.module#MapsModule'
+    }]
+  },
+  {
+    path: 'simplywhite',
+    component: SimplyWhiteLayout,
+    children: [{
+      path: 'charts',
+      component: ChartsComponent
+    }]
+  },
+  //Executive
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'dashboard',
+      component: ExecutiveDashboardComponent,
+      data: {
+        title: 'Tableau de board'
+      }
+    }],
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'social',
+      component: SocialComponent,
+      data: {
+        title: 'social'
+      }
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'extra',
+      loadChildren: './extra/extra.module#ExtraModule'
+    }]
+  },{
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'layouts',
+      loadChildren: './layouts/layouts.module#LayoutPageModule'
+    }]
+  },{
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'builder',
+      loadChildren: './builder/builder.module#BuilderModule'
+    }]
+  },{
+    path: 'executive',
+    component: BlankComponent,
+    children: [{
+      path: 'session',
+      loadChildren: './session/session.module#SessionModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'forms',
+      loadChildren: './forms/forms.module#FormsPageModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'ui',
+      loadChildren: './ui/ui.module#UiModule'
+    }]
+  },{
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'email',
+      loadChildren: './email/email.module#EmailModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'cards',
+      component: CardsComponentPage,
+      data: {
+        title: 'cards'
+      }
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'views',
+      component: ViewsPageComponent,
+      data: {
+        title: 'views'
+      }
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'users',
+      loadChildren: './@athena/users/users.module#UsersModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'plannings',
+      loadChildren: './@athena/planning/planning.module#PlanningModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'tables',
+      loadChildren: './tables/tables.module#TablesModule'
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'maps',
+      loadChildren: './maps/maps.module#MapsModule',
+      data: {
+        title: 'maps'
+      }
+    }]
+  },
+  {
+    path: 'executive',
+    component: ExecutiveLayout,
+    children: [{
+      path: 'charts',
+      component: ChartsComponent,
+      data: {
+        title: 'charts'
+      }
+    }]
+  },
+    //Casual
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'dashboard',
+        component: CasualDashboardComponent
+      }],
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'social',
+        component: SocialComponent
+      }]
+    },{
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'builder',
+        loadChildren: './builder/builder.module#BuilderModule'
+      }]
+    },{
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'layouts',
+        loadChildren: './layouts/layouts.module#LayoutPageModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'extra',
+        loadChildren: './extra/extra.module#ExtraModule'
+      }]
+    },{
+      path: 'casual',
+      component: BlankCasualComponent,
+      children: [{
+        path: 'session',
+        loadChildren: './session/session.module#SessionModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'forms',
+        loadChildren: './forms/forms.module#FormsPageModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'ui',
+        loadChildren: './ui/ui.module#UiModule'
+      }]
+    },{
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'email',
+        loadChildren: './email/email.module#EmailModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'cards',
+        component: CardsComponentPage
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'views',
+        component: ViewsPageComponent
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'tables',
+        loadChildren: './tables/tables.module#TablesModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'maps',
+        loadChildren: './maps/maps.module#MapsModule'
+      }]
+    },
+    {
+      path: 'casual',
+      component: CasualLayout,
+      children: [{
+        path: 'charts',
+        component: ChartsComponent
+      }]
+    }
+];

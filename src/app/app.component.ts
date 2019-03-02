@@ -1,29 +1,41 @@
-import { Component, ViewChild} from '@angular/core';
-import { AppSettings } from './app.settings';
-import { Settings } from './app.settings.model';
+import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
-import { UsersService } from './pages/users/users.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers:[UsersService]
+  template: '<router-outlet></router-outlet>',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public settings: Settings;
+  title = 'app works!';
+
   user:any;
-  constructor(public appSettings:AppSettings,public afAuth: AngularFireAuth, public router:Router, public uss:UsersService){
-      this.settings = this.appSettings.settings;
+  constructor(public afAuth: AngularFireAuth,private router: Router){
+      
   } 
 
   ngOnInit() { 
-    var lrouter = this.router;
+    let routerr = this.router;
     this.afAuth.auth.onAuthStateChanged(function(user) {
       if (user) {
+        //routerr.navigateByUrl('/dashboard'); 
         //this.appSettings.user = user;
-        lrouter.navigate(['/dashboard']); 
+        //routerr.navigate(['/dashboard']); 
+        //alert(window.location.href);
+        if (!(window.location.href.indexOf("/dashboard") > -1))
+        {
+          window.location.href = "/dashboard";
+        }
+        
+      }
+      else 
+      {
+        if (!(window.location.href.indexOf("/session/login") > -1))
+        {
+          window.location.href = "/session/login";
+        }
+ 
       }
     });
   }

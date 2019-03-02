@@ -1,0 +1,279 @@
+<div bsModal #addNewAppModal="bs-modal" class="modal fade stick-up" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header clearfix ">
+			  <button type="button" class="close" (click)="addNewAppModal.hide()" aria-hidden="true"><i class="pg pg-close fs-14"></i>
+			  </button>
+			  <h4 class="p-b-5"><span class="semi-bold">Nouvelle</span> Consigne</h4>
+			</div>
+			<div class="modal-body">
+			  <!--<p class="small-text">Veuillez saisir ces informations</p>-->
+			  <form role="form" autocomplete="off" #basicForm="ngForm">
+				<div class="row">
+				  <div class="col-sm-12">
+						<div  *ngIf="isNew" class="form-group form-group-default form-group-default-select2 required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+					
+						<label>A l'attention de </label>
+						<pg-select #modalAppName="ngModel" style="width: 100%;"
+							[PlaceHolder]="'Select'"
+							[(ngModel)]="notice.to"
+							[NotFoundContent]="'Not found'" 
+							name="noticeTo" required>
+							
+							<pg-option
+								*ngFor="let option of usersFiltered" 
+								[Label]="option.label"
+								[Value]="option.value">
+							</pg-option>
+						</pg-select>
+					</div>
+				  </div>
+				</div>
+				<div class="row" *ngIf="isNew" >
+				  <div class="col-sm-12">
+						<div class="form-group form-group-default required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+							<label>Demande</label>
+							<textarea  rows="5" class="form-control" id="noticeMessage" name="noticeMessage" [(ngModel)]="notice.message"  #modalAppName="ngModel" required>
+							</textarea>
+						</div>
+				  </div>
+				</div>
+				
+				<div class="row  auto-overflow" style="height:300px;" *ngIf="!isNew">
+
+						<div class="view chat-view bg-white clearfix" style="width:100%;">
+								
+								<!-- BEGIN Conversation  !-->
+								<div class="chat-inner" perfectScrollbar #chatHistoryWrapper>
+										<div class="message clearfix" >
+												<h5>{{getUserName(notice.from)}} à Ecrit:</h5>
+											<div class="chat-bubble" [class.from-me]="notice.from != afAuth.auth.currentUser.uid" [class.from-them]="notice.from == afAuth.auth.currentUser.uid">
+												{{notice.message}}
+											</div>
+										</div>
+									<!-- BEGIN Message  !-->
+									<div class="message clearfix"  *ngFor="let val of notice.replys">
+											<h5>{{getUserName(val.from)}} à Ecrit:</h5>
+										<div class="chat-bubble"  [class.from-me]="val.from != afAuth.auth.currentUser.uid" [class.from-them]="val.from == afAuth.auth.currentUser.uid">
+											{{val.message}}
+										</div>
+									</div>
+									<!-- END Message  !-->
+								</div>
+								<!-- BEGIN Conversation  !-->
+							</div>
+
+
+				
+			
+			</div>
+			
+
+				<div class="row" *ngIf="!isNew  && !notice.closed">
+						<div class="col-sm-12">
+						<div class="form-group form-group-default required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+							<label>Réponse</label>
+							<textarea  rows="5" class="form-control" id="noticeReply" name="noticeReply" [(ngModel)]="notice.reply"  #modalAppName="ngModel" required>
+							</textarea>
+						</div>
+						</div>
+					</div>
+				
+				<div class="row" *ngIf="isNew">
+				  <div class="col-sm-12">
+						<pg-upload
+						[CustomRequest]="upload"
+						[FileList]="notice.files" >
+						<button class="btn btn-success btn-cons">
+						  <i class="fa fa-upload m-r-10"></i><span>Joindre un fichier</span>
+						</button>
+					  </pg-upload>
+				  </div>
+				</div>
+			   
+				
+			  </form>
+			</div>
+			<div class="modal-footer">
+					<button id="add-app" *ngIf="isOwner && !isNew && !notice.closed" type="button" class="btn btn-success  btn-cons" (click)="closeNotice()" >Clôturer</button>
+			  <button id="add-app" *ngIf="!notice.closed" type="button" class="btn btn-primary  btn-cons" (click)="!basicForm.invalid && addRow()" [class.disabled]="basicForm.invalid" >Valider</button>
+			  <button type="button" class="btn btn-cons" (click)="addNewAppModal.hide()">Annuler</button>
+			</div>
+		  </div>
+		  <!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	  </div>
+	
+	
+<pgcard TimeOut="3000" AdditionalClasses="card no-border  card-condensed  no-margin widget-loader-circle todolist-widget align-self-stretch"
+ Maximize="false"  BodyClass="no-padding" HeaderClass="top-right"
+ Toggle="false" Close="false"  Controls="false">
+ <div class="padding-25">
+		<div class="pull-left">
+			<h2 class="text-success no-margin" style="color:#f55753 !important;">Notices</h2>
+		</div>
+		<div class="pull-right">
+						<a href="javascript:void(0)" (click)="showModal(null)" class="block m-t-15">
+							<img src="assets/img/plus.svg">
+						</a>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<pg-tabset tabAnimation="slide-left" Type="simple" ShowPagination="true">
+			<pg-tab>
+					<ng-template #TabHeading>
+						Consignes recues 
+						<div class="badge">{{noticesTo.length}}</div>
+					</ng-template>
+		
+					<div class="p-t-15" *ngFor="let cons of noticesTo">
+							<div class="d-flex">
+									<!--<span class="icon-thumbnail bg-master-light pull-left text-master">ws</span>-->
+									<div class="flex-1 full-width overflow-ellipsis">
+				
+											<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">De
+												</p>
+											<div class="m-b-10">
+												<pg-tag >{{cons.fromName}}</pg-tag>
+											</div>
+											<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Message
+												</p>
+										
+										<h5 class="m-b-10  m-t-0 overflow-ellipsis ">{{cons.message}}</h5>
+		
+										<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Documents liés
+											</p>
+											
+											<ol>
+												<li *ngFor="let fi of cons.files" >
+				
+														<a href="{{fi.url}}" class="text-master" target="_blank">
+																<i class="pg pg-download"></i>
+																{{fi.name}}
+															</a>					
+												</li>
+											</ol>
+									</div>
+								</div>
+								<div class="m-t-15">
+									<p class="hint-text small pull-left" *ngIf="cons.state_to == 0">Attente de réponse</p>
+									<p class="hint-text small pull-left" *ngIf="cons.state_to == 1">Nouveau message</p>
+									<p class="hint-text small pull-left" *ngIf="cons.state_to == 2">Message Lu</p>
+									<button (click)="showModal(cons)"  class="pull-right btn btn-primary btn-cons"><i class="fa fa-plus"></i> Détail
+									</button>
+									<div class="clearfix"></div>
+								</div>
+								<div class="progress progress-small m-b-15 m-t-10">
+									<!-- START BOOTSTRAP PROGRESS (http://getbootstrap.com/components/#progress) -->
+									<div class="progress-bar progress-bar-danger"  *ngIf="cons.state_to == 0" style="width:100%"></div>
+									<div class="progress-bar progress-bar-success"  *ngIf="cons.state_to == 1" style="width:100%"></div>
+									<div class="progress-bar progress-bar-success"  *ngIf="cons.state_to == 2" style="width:100%"></div>
+									<!-- END BOOTSTRAP PROGRESS -->
+								</div>
+					</div>
+				</pg-tab>
+		<pg-tab>
+			<ng-template #TabHeading>
+				Consignes envoyées
+				<div class="badge">{{noticesFrom.length}}</div>
+			</ng-template>
+			<div class="p-t-15" *ngFor="let cons of noticesFrom">
+				<div class="d-flex">
+					<!--<span class="icon-thumbnail bg-master-light pull-left text-master">ws</span>-->
+					<div class="flex-1 full-width overflow-ellipsis">
+
+							<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">A l'attention de
+								</p>
+							<div class="m-b-10">
+								<pg-tag>{{cons.toName}}</pg-tag>
+							</div>
+							<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Message
+								</p>
+						
+						<h5 class="m-b-10 m-t-0 overflow-ellipsis ">{{cons.message}}</h5>
+						
+						<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Documents liés
+							</p>
+							
+							<ol>
+								<li *ngFor="let fi of cons.files" >
+
+										<a href="{{fi.url}}" class="text-master" target="_blank">
+												<i class="pg pg-download"></i>
+												{{fi.name}}
+											</a>					
+								</li>
+							</ol>
+
+					</div>
+				</div>
+				<div class="m-t-15">
+						<p class="hint-text small pull-left" *ngIf="cons.state_from == 0">Attente de réponse</p>
+						<p class="hint-text small pull-left" *ngIf="cons.state_from == 1">Une réponse vous attend</p>
+						<p class="hint-text small pull-left" *ngIf="cons.state_from == 2">Message Lu</p>
+						<button (click)="showModal(cons)"  class="pull-right btn btn-primary btn-cons"><i class="fa fa-plus"></i> Détail
+						</button>
+					<div class="clearfix"></div>
+				</div>
+				<div class="progress progress-small m-b-15 m-t-10">
+					<!-- START BOOTSTRAP PROGRESS (http://getbootstrap.com/components/#progress) -->
+					<div class="progress-bar progress-bar-danger"  *ngIf="cons.state_from == 0" style="width:100%"></div>
+					<div class="progress-bar progress-bar-warning"  *ngIf="cons.state_from == 1" style="width:100%"></div>
+					<div class="progress-bar progress-bar-success"  *ngIf="cons.state_from == 2" style="width:100%"></div>
+					<!-- END BOOTSTRAP PROGRESS -->
+				</div>
+			</div>
+
+		</pg-tab>
+		<!--<pg-tab>
+				<ng-template #TabHeading>
+					Consignes cloturées 
+					<div class="badge">{{noticesClosed.length}}</div>
+				</ng-template>
+	
+				<div class="p-t-15" *ngFor="let cons of noticesClosed">
+						<div class="d-flex">
+		
+								<div class="flex-1 full-width overflow-ellipsis">
+			
+										<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">De
+											</p>
+										<div class="m-b-10">
+											<pg-tag >{{cons.fromName}}</pg-tag>
+										</div>
+										<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Message
+											</p>
+									
+									<h5 class="m-b-10  m-t-0 overflow-ellipsis ">{{cons.message}}</h5>
+	
+									<p class="hint-text all-caps font-montserrat  small no-margin overflow-ellipsis ">Documents liés
+										</p>
+										
+										<ol>
+											<li *ngFor="let fi of cons.files" >
+			
+													<a href="{{fi.url}}" class="text-master" target="_blank">
+															<i class="pg pg-download"></i>
+															{{fi.name}}
+														</a>					
+											</li>
+										</ol>
+								</div>
+							</div>
+							<div class="m-t-15">
+									<button (click)="showModal(cons)"  class="pull-right btn btn-primary btn-cons"><i class="fa fa-plus"></i> Détail
+									</button>
+
+									<div class="clearfix"></div>
+								</div>
+							<div class="progress progress-small m-b-15 m-t-10">
+								
+								<div class="progress-bar progress-bar-success"  style="width:100%"></div>
+								
+							</div>
+				</div>
+			</pg-tab>
+		-->
+	</pg-tabset>
+</pgcard>

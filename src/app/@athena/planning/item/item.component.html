@@ -1,0 +1,348 @@
+<div bsModal #addNewAppModal="bs-modal" class="modal fade stick-up" tabindex="-1" role="dialog" aria-labelledby="addNewAppModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix ">
+        <button type="button" class="close" (click)="addNewAppModal.hide()" aria-hidden="true"><i class="pg pg-close fs-14"></i>
+        </button>
+        <h4 class="p-b-5"><span class="semi-bold">Affectation</span> temps</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" autocomplete="off" #basicForm="ngForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group form-group-default form-group-default-select2 required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+            
+              <label>Ressource </label>
+              <pg-select #modalAppName="ngModel" style="width: 100%;"
+                [PlaceHolder]="'Select'"
+                [(ngModel)]="rja.colab"
+                [NotFoundContent]="'Not found'" 
+                name="collab" required>
+                
+                <pg-option
+                  *ngFor="let option of users" 
+                  [Label]="option.label"
+                  [Value]="option.value">
+                </pg-option>
+              </pg-select>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group form-group-default form-group-default-select2 required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+            
+              <label>Tache </label>
+              <pg-select #modalAppName="ngModel" style="width: 100%;"
+                [PlaceHolder]="'Select'"
+                [(ngModel)]="rja.tache"
+                [NotFoundContent]="'Not found'" 
+                name="tache" required>
+                
+                <pg-option
+                  *ngFor="let option of taches" 
+                  [Label]="option.label"
+                  [Value]="option.value">
+                </pg-option>
+              </pg-select>
+            </div>
+            </div>
+          </div>
+          
+          <!--<div class="row">
+            <div class="col-sm-12">
+              <div class="form-group form-group-default required" [class.has-error]="modalAppName.invalid && (modalAppName.dirty || modalAppName.touched)" >
+                  <label>Mot de passe</label>
+                  <input type="Password" class="form-control" id="userPass" name="userPass" [(ngModel)]="user.password"  #modalAppName="ngModel" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group form-group-default form-group-default-select2 required">
+                <label class="">Qualification</label>
+                <pg-select style="width: 100%;" [(ngModel)]="user.qualif"  name="userQualif" [PlaceHolder]="'Sélection'"  #modalAppName="ngModel" AllowClear ShowSearch>
+                   
+                  <pg-option [Label]="'Direction'" [Value]="'dir'"></pg-option>
+                  <pg-option [Label]="'Technicien'" [Value]="'tech'"></pg-option>
+                  <pg-option [Label]="'Ouvrier spécialisé'" [Value]="'os'"></pg-option>
+                  <pg-option [Label]="'Manoeuvre'" [Value]="'man'"></pg-option>
+                  </pg-select>
+              </div>
+            </div>
+          </div>-->
+          <!--<div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox ">
+                  <input type="checkbox" value="1" id="checkbox1">
+                  <label for="checkbox1">Actif</label>
+                </div>
+              </div>
+          </div>-->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="add-app" type="button" class="btn btn-primary  btn-cons" (click)="!basicForm.invalid && validRja()" [class.disabled]="basicForm.invalid" >Ajouter</button>
+        <button type="button" class="btn btn-cons" (click)="addNewAppModal.hide()">Annuler</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="jumbotron">
+    <pg-container extraHorizontalClass="p-l-0 p-r-0" extraClass="sm-p-l-0 sm-p-r-0">
+       <div class="inner" pg-parallax>
+         <!-- START BREADCRUMB -->
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0);" [routerLink]="'/dashboard'">Accueil</a></li>
+            <li class="breadcrumb-item active">Planning</li>
+          </ol>
+         <!-- END BREADCRUMB --> 
+         
+       </div>
+
+     </pg-container>
+   </div>
+
+
+<pg-container extraClass="bg-white" extraHorizontalClass="bg-white">
+
+    <pg-tabset tabAnimation="slide-left" Type="simple" ShowPagination="true">
+        <pg-tab>
+          <ng-template #TabHeading>
+            Informations principales
+          </ng-template>
+          <div class="card card-transparent">
+              <div class="card-body">
+                <form id="form-project" role="form" autocomplete="off">
+                  <p>Basic Information</p>
+                  <div class="form-group">
+                    <div  class="form-group form-group-default required" >
+                      <label>Nom de l'affaire</label>
+                      <input type="text"  [(ngModel)]="planning.name" class="form-control" name="planningName" >
+                    </div>
+                    <div class="row clearfix">
+                      <div class="col-md-6">
+                        <div class="form-group form-group-default required">
+                          <label>Date début</label>
+                          <pg-datepicker  [ngModel]="planning.start.seconds*1000  | date:'MM-dd-yyyy'"  (ngModelChange)="planning.start=$event" name="planningStart"></pg-datepicker>
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group form-group-default">
+                          <label>Date fin</label>
+                          <pg-datepicker  [ngModel]="planning.ended.seconds*1000  | date:'MM-dd-yyyy'"  (ngModelChange)="planning.ended=$event" format="dd/MM/yyyy" [(ngModel)]="planning.ended" name="planningEnd"></pg-datepicker>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                          <div  class="form-group form-group-default input-group">
+                            <div class="form-input-group">
+                              <label>Budget</label>
+                              <input type="text" class="form-control eur"  name="planningBudget" [(ngModel)]="planning.budget" >
+                            </div>
+                            <div class="input-group-append ">
+                                <span class="input-group-text">EUR
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <br>
+                  <button class="btn btn-success" (click)="valid()" >Valider</button>&nbsp;
+                  <button class="btn btn-default"><i class="pg pg-close"></i> Annuler</button>
+                </form>
+              </div>
+            </div>
+    
+        </pg-tab>
+        <pg-tab>
+          <ng-template #TabHeading>
+            Tranches
+          </ng-template>
+    
+          <div class="row">
+              <div class="col-xl-12 col-lg-12 ">
+                <!-- START card -->
+                <div class="card card-transparent">
+                  <div class="card-header ">
+                      <div class="">
+                          <div class="pull-left">
+                            <h2 class="text-success no-margin v-align-middle" style="color:#f55753 !important;">Gestion des tranches de l'affaire</h2>
+                          </div>
+                          <div class="pull-right">
+                                  <a href="javascript:void(0)" (click)="addTranche()" class="block m-t-15 v-align-middle">
+                                    <img src="assets/img/plus.svg">
+                                  </a>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                  </div>
+                  <div class="card-body mtree">
+                      <tree-root [nodes]="simpleNodes" (activate)="onNodeSelect($event)" [options]="options" class="tree-wrapper bold-node-text level1-document-icon-only m-b-20"></tree-root>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xl-6 col-lg-6 ">
+                <!-- START card -->
+                <div class="card card-transparent" [hidden]="!formVisible">
+                  <div class="card-body">
+                      <form id="form-project" role="form" autocomplete="off">
+                          <p>Informations principales</p>
+                          <div class="form-group">
+                            <div  class="form-group form-group-default required" >
+                              <label>Nom de la tranche</label>
+                              <input type="text"  [(ngModel)]="tranche.name" class="form-control" name="trancheName" >
+                            </div>
+                            <div class="row clearfix">
+                              <div class="col-md-6">
+                                <div class="form-group form-group-default required">
+                                  <label>Date de début</label>
+                                  <pg-datepicker [(ngModel)]="tranche.start" name="trancheStart"></pg-datepicker>
+                                  
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group form-group-default">
+                                  <label>Date de fin</label>
+                                  <pg-datepicker  [(ngModel)]="tranche.ended" name="trancheEnd"></pg-datepicker>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                  <div  class="form-group form-group-default input-group">
+                                    <div class="form-input-group">
+                                      <label>Budget</label>
+                                      <input type="text" class="form-control eur"  name="trancheBudget" [(ngModel)]="tranche.budget" >
+                                    </div>
+                                    <div class="input-group-append ">
+                                        <span class="input-group-text">EUR
+                                        </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div  class="form-group form-group-default required" >
+                                <label>Notes</label>
+                                <textarea [(ngModel)]="tranche.notes" rows="5" class="form-control" name="trancheNotes"></textarea>
+                              </div>
+                          <br>
+                          <button class="btn btn-success" (click)="validTranche()" >Valider</button>&nbsp;
+                          <button class="btn btn-default"><i class="pg pg-close"></i> Annuler</button>
+                        </form>
+                  </div>
+                </div>
+                <!-- END card -->
+              </div>
+              <div class="col-xl-6 col-lg-6 ">
+                <!-- START card -->
+                <div class="card card-transparent" [hidden]="!formVisible">
+                  <div class="card-body">
+                      <form id="form-project" role="form" autocomplete="off">
+                          <p>RJA</p>
+                          <div class="pull-right">
+                            <a href="javascript:void(0)" (click)="addRja()" class="block m-t-15 v-align-middle">
+                              <img src="assets/img/plus.svg">
+                            </a>
+                    </div>
+                          <div class="card-body">
+                            <div class="table-responsive">
+                                <ngx-datatable
+                                class='table table-hover table-stripped'
+                                [rows]="tranche.rjas"
+                                [columnMode]="columnModeSettingSmall"
+                                [scrollbarH]="scrollBarHorizontal"
+                                [headerHeight]="43"
+                                [footerHeight]="0"
+                                [rowHeight]="'auto'"
+                                [limit]="5"
+                                [sorts]="[{prop: 'title', dir: 'asc'}]">
+                                <ngx-datatable-column name="Tache" cellClass="d-flex align-items-center"></ngx-datatable-column>
+                    <ngx-datatable-column name="Ressource" cellClass="d-flex align-items-center">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <a href="javascript:;" *ngFor="let value of row.places" class="btn btn-tag">{{value}}</a>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Nb heures" cellClass="d-flex align-items-center"></ngx-datatable-column>
+                              </ngx-datatable>
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+                <!-- END card -->
+              </div>
+            </div>
+        </pg-tab>
+      </pg-tabset>
+
+    <div class="row">
+    
+      <div class="col-md-12">
+        <!-- START card 
+        <div class="card card-transparent">
+          <div class="card-body">
+            <form id="form-project" role="form" autocomplete="off">
+              <p>Basic Information</p>
+              <div class="form-group">
+                <div  class="form-group form-group-default required" >
+                  <label>Nom de l'affaire</label>
+                  <input type="text"  [(ngModel)]="planning.name" class="form-control" name="planningName" >
+                </div>
+                <div class="row clearfix">
+                  <div class="col-md-6">
+                    <div class="form-group form-group-default required">
+                      <label>Starting date</label>
+                      <pg-datepicker [(ngModel)]="planning.start" name="planningStart"></pg-datepicker>
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group form-group-default">
+                      <label>Deadline</label>
+                      <pg-datepicker  [(ngModel)]="planning.ended" name="planningEnd"></pg-datepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                      <div  class="form-group form-group-default input-group">
+                        <div class="form-input-group">
+                          <label>Budget</label>
+                          <input type="text" class="form-control eur"  name="planningBudget" [(ngModel)]="planning.budget" >
+                        </div>
+                        <div class="input-group-append ">
+                            <span class="input-group-text">EUR
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <br>
+              <button class="btn btn-success" (click)="valid()" >Submit</button>&nbsp;
+              <button class="btn btn-default"><i class="pg pg-close"></i> Clear</button>
+            </form>
+          </div>
+        </div>
+         END card -->
+      </div>
+    </div>
+
+
+  </pg-container>
+
+  <pg-container extraClass="bg-white" extraHorizontalClass="bg-white">
+      
+      
+  
+    </pg-container>

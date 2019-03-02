@@ -1,90 +1,185 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+//Angular Core
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
+import { BrowserModule,  HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+//Routing
+import { AppRoutes } from './app.routing';
+import { AppComponent } from './app.component';
 
-import { AgmCoreModule } from '@agm/core';
+//Layouts
+import { CondensedComponent, BlankComponent, RootLayout,CorporateLayout,SimplyWhiteLayout,ExecutiveLayout, CasualLayout } from './@pages/layouts';
+//Layout Service - Required
+import { pagesToggleService } from './@pages/services/toggler.service';
+
+//Shared Layout Components
+import { SidebarComponent } from './@pages/components/sidebar/sidebar.component';
+import { QuickviewComponent } from './@pages/components/quickview/quickview.component';
+import { QuickviewService } from './@pages/components/quickview/quickview.service';
+import { SearchOverlayComponent } from './@pages/components/search-overlay/search-overlay.component';
+import { HeaderComponent } from './@pages/components/header/header.component';
+import { HorizontalMenuComponent } from './@pages/components/horizontal-menu/horizontal-menu.component';
+import { SharedModule } from './@pages/components/shared.module';
+import { pgListViewModule} from './@pages/components/list-view/list-view.module';
+import { pgCardModule} from './@pages/components/card/card.module';
+import { pgCardSocialModule} from './@pages/components/card-social/card-social.module';
+
+import { AngularFireModule } from 'angularfire2';
+
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
+//Basic Bootstrap Modules
+import {BsDropdownModule,
+        AccordionModule,
+        AlertModule,
+        ButtonsModule,
+        CollapseModule,
+        ModalModule,
+        ProgressbarModule,
+        TabsModule,
+        TooltipModule,
+        TypeaheadModule,
+} from 'ngx-bootstrap';
+
+//Pages Globaly required Components - Optional
+import { pgTabsModule } from './@pages/components/tabs/tabs.module';
+import { pgSwitchModule } from './@pages/components/switch/switch.module';
+import { ProgressModule } from './@pages/components/progress/progress.module';
+
+//Thirdparty Components / Plugins - Optional
+import { NvD3Module } from 'ngx-nvd3';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { IsotopeModule } from 'ngx-isotope';
+import { StepsformDirective } from './social/stepsform.directive';
+import { NgxDnDModule} from '@swimlane/ngx-dnd';
+import { QuillModule } from 'ngx-quill';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  wheelPropagation: true,
-  suppressScrollX: true               
-};
-import { CalendarModule } from 'angular-calendar';
-import { SharedModule } from './shared/shared.module';
-import { PipesModule } from './theme/pipes/pipes.module';
-import { routing } from './app.routing';
 
-import { AppComponent } from './app.component';
-import { PagesComponent } from './pages/pages.component';
-import { BlankComponent } from './pages/blank/blank.component';
-import { SearchComponent } from './pages/search/search.component';
-import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-import { ErrorComponent } from './pages/errors/error/error.component';
-import { AppSettings } from './app.settings';
+//Service - Demo content - Optional
+import { ChartService } from './charts/charts.service';
+import { SocialService } from './social/social.service';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+//Social Page - Optional
+import { SocialComponent } from './social/social.component';
+import { CoverpageDirective } from './social/coverpage.directive';
 
+//Demo Pages - Optional
+import { FormWizardComponent } from './forms/form-wizard/form-wizard.component';
+import { CardsComponentPage } from './cards/cards.component';
+import { ViewsPageComponent } from './views/views.component';
+import { ChartsComponent } from './charts/charts.component';
+
+//Dashboard Widgets - Optional
+import { DashboardModule } from './dashboard/dashboard.module';
+
+//Dashboards - Optional
+import { CondensedDashboardComponent } from './dashboard/condensed/dashboard.component';
+import { SimplyWhiteDashboardComponent } from './dashboard/simplywhite/dashboard.component';
+import { CasualDashboardComponent } from './dashboard/casual/dashboard.component';
+import { CorporateDashboardComponent } from './dashboard/corporate/dashboard.component';
+import { ExecutiveDashboardComponent } from './dashboard/executive/dashboard.component';
+
+//Sample Blank Pages - Optional
+import { BlankCorporateComponent } from './@pages/layouts/blank-corporate/blank-corporate.component';
+import { BlankSimplywhiteComponent } from './@pages/layouts/blank-simplywhite/blank-simplywhite.component';
+import { BlankCasualComponent } from './@pages/layouts/blank-casual/blank-casual.component';
 import { environment } from '../environments/environment';
 
-import { SidenavComponent } from './theme/components/sidenav/sidenav.component';
-import { VerticalMenuComponent } from './theme/components/menu/vertical-menu/vertical-menu.component';
-import { HorizontalMenuComponent } from './theme/components/menu/horizontal-menu/horizontal-menu.component';
-import { BreadcrumbComponent } from './theme/components/breadcrumb/breadcrumb.component';
-import { FlagsMenuComponent } from './theme/components/flags-menu/flags-menu.component';
-import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.component';
-import { ApplicationsComponent } from './theme/components/applications/applications.component';
-import { MessagesComponent } from './theme/components/messages/messages.component';
-import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
+
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+//Hammer Config Overide
+//https://github.com/angular/angular/issues/10541
+export class AppHammerConfig extends HammerGestureConfig  {
+  overrides = <any>{
+      'pinch': { enable: false },
+      'rotate': { enable: false }
+  }
+}
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
-    ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
-    }), 
-    PerfectScrollbarModule, 
-    CalendarModule.forRoot(),
-    SharedModule,
-    PipesModule,
-    routing,
-    AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase), 
-    AngularFirestoreModule
-  ],
   declarations: [
     AppComponent,
-    PagesComponent,
+    CondensedComponent,
+    CorporateLayout,
+    SimplyWhiteLayout,
+    ExecutiveLayout,
+    CasualLayout,
+    SidebarComponent, QuickviewComponent, SearchOverlayComponent, HeaderComponent,HorizontalMenuComponent,
     BlankComponent,
-    SearchComponent,
-    NotFoundComponent,
-    ErrorComponent,
-    SidenavComponent,
-    VerticalMenuComponent,
-    HorizontalMenuComponent,
-    BreadcrumbComponent,
-    FlagsMenuComponent,
-    FullScreenComponent,
-    ApplicationsComponent,
-    MessagesComponent,
-    UserMenuComponent
+    RootLayout,
+    CardsComponentPage,
+    ViewsPageComponent,
+    ChartsComponent,
+    SocialComponent,
+    StepsformDirective,
+    CoverpageDirective,
+    CondensedDashboardComponent,
+    SimplyWhiteDashboardComponent,
+    CasualDashboardComponent,
+    CorporateDashboardComponent,
+    ExecutiveDashboardComponent,
+    BlankCorporateComponent,
+    BlankSimplywhiteComponent,
+    BlankCasualComponent,
   ],
-  entryComponents:[
-    VerticalMenuComponent
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    HttpModule,
+    HttpClientModule,
+    SharedModule,
+    ProgressModule,
+    pgListViewModule,
+    pgCardModule,
+    pgCardSocialModule,
+    RouterModule.forRoot(AppRoutes),
+    BsDropdownModule.forRoot(),
+    AccordionModule.forRoot(),
+    AlertModule.forRoot(),
+    ButtonsModule.forRoot(),
+    CollapseModule.forRoot(),
+    ModalModule.forRoot(),
+    ProgressbarModule.forRoot(),
+    TabsModule.forRoot(),
+    TooltipModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    NvD3Module,
+    pgTabsModule,
+    NgxEchartsModule,
+    IsotopeModule,
+    NgxDnDModule,
+    QuillModule,
+    PerfectScrollbarModule,
+    pgSwitchModule,
+    DashboardModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFireModule.initializeApp(environment.firebase,"second"), 
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
-  providers: [ 
-    AppSettings,
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    { provide: OverlayContainer, useClass: CustomOverlayContainer }
-  ],
-  bootstrap: [AppComponent]
+  providers: [QuickviewService,pagesToggleService,ChartService,SocialService,{
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+  },
+  {
+    provide: HAMMER_GESTURE_CONFIG,
+    useClass: AppHammerConfig
+  }],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
